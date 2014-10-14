@@ -1,0 +1,23 @@
+/* 栅格系统 */
+.grid-content{
+    height: 50px;
+}
+.grid-content > div{
+    height: 100%;
+    background-color: gray;
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+}
+.grid-content-nesting{
+    position: relative;
+    height: 50%;
+    top: 50%;
+}
+.grid-content-nesting > div{
+    height: 100%;
+    background-color: mediumvioletred;
+    border-color: #000000;
+    border-width: 2px;
+    border-style: solid;
+}
