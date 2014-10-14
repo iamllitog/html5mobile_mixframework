@@ -5,7 +5,7 @@ var page = {
     },
     bindEvents: function() {
         $('#typesettingBt').click(function(){
-            location.href = 'html/typesetting.html';
+            location.href = 'typesetting.html';
         });
     }
 };
