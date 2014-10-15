@@ -1,0 +1,10 @@
+.content-div{
+	border-bottom-width: 1px ;
+	border-bottom-style: solid; 
+	border-bottom-color: #000000; 
+}
+
+.code-bt{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

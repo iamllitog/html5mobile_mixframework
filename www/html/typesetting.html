@@ -1,17 +1,246 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="../framework/mixframework/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/index.css"/>
-    <title>Hello World</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="../framework/mixframework/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/typesetting.css"/>
+	<title>Hello World</title>
 </head>
 <body>
+	<h1>排版</h1>
+	<div class="container ">
+		<h3>标题</h3>
+		<div class='col-xs-12 content-div'>
+			<h1>h1. heading</h1>
+			<h2>h2. heading</h2>
+			<h3>h3. heading</h3>
+			<h4>h4. heading</h4>
+			<h5>h5. heading</h5>
+			<h6>h6. heading</h6>
+		</div>
 
+		<h3>副标题</h3>
+		<div class='col-xs-12 content-div'>
+			<h1>h1. heading <small>Secondary text</small></h1>
+			<h2>h2. heading <small>Secondary text</small></h2>
+			<h3>h3. heading <small>Secondary text</small></h3>
+			<h4>h4. heading <small>Secondary text</small></h4>
+			<h5>h5. heading <small>Secondary text</small></h5>
+			<h6>h6. heading <small>Secondary text</small></h6>
+		</div>
 
-<script src="cordova.js"></script>
-<script src="../framework/mixframework/js/zepto.min.js"></script>
+		<h3>页面主体-p标签</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ullamcorper nulla non metus auctor fringilla. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus auctor fringilla.
+			</p>
+		</div>
 
+		<h3>页面主体-中心内容</h3>
+		<div class='col-xs-12 content-div'>
+			<p  class="lead">
+				Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+			</p>
+		</div>
+
+		<h3>内联元素-记号笔</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark tag to <mark>highlight text</mark>.
+			</p>
+		</div>
+
+		<h3>内联元素-删除元素</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark del to <del>mark text</del>.
+			</p>
+		</div>
+
+		<h3>内联元素-无用文本</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark  to <s>not use text</s>.
+			</p>
+		</div>
+
+		<h3>内联元素-插入文本</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark to <ins>insert text</ins>.
+			</p>
+		</div>
+
+		<h3>内联元素-下划线</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark to <u>underline text</u>.
+			</p>
+		</div>
+
+		<h3>内联元素-小号文本</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark to <small>small text</small>.
+			</p>
+		</div>
+
+		<h3>内联元素-着重</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark to <strong>strong text</strong>.
+			</p>
+		</div>
+
+		<h3>内联元素-斜体</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				You can use the mark to <em>italicized text</em>.
+			</p>
+		</div>
+
+		<h3>对齐</h3>
+		<div class='col-xs-12 content-div'>
+			<p class="text-left">Left aligned text.</p>
+			<p class="text-center">Center aligned text.</p>
+			<p class="text-right">Right aligned text.</p>
+			<p class="text-justify">设定文本对齐设定文本对齐设定文本对齐设定文本对齐,段落中超出屏幕部分文字自动换行</p>
+			<p class="text-nowrap">设定文本对齐设定文本对齐设定文本对齐设定文本对齐,段落中超出屏幕部分不换行，手机慎用</p>
+		</div>
+
+		<h3>改变大小写</h3>
+		<div class='col-xs-12 content-div'>
+			<p class="text-lowercase">Lowercased text.</p>
+			<p class="text-uppercase">Uppercased text.</p>
+		</div>
+
+		<h3>缩略语(手机不可用)</h3>
+		<div class='col-xs-12 content-div'>
+			<p>You can use the mark to <abbr title="attribute">attr text</abbr>.</p>
+		</div>
+
+		<h3>地址</h3>
+		<div class='col-xs-12 content-div'>
+			<p>
+				让联系信息以最接近日常使用的格式呈现。在每行结尾添加 <br> 可以保留需要的样式。
+			</p>
+			<address>
+				<strong>Twitter, Inc.</strong><br>
+				795 Folsom Ave, Suite 600<br>
+				San Francisco, CA 94107<br>
+				<abbr title="Phone">P:</abbr> (123) 456-7890
+			</address>
+
+			<address>
+				<strong>Full Name</strong><br>
+				<a href="mailto:#">first.last@example.com</a>
+			</address>
+		</div>
+
+		<h3>引用样式(类似名人名言)</h3>
+		<div class='col-xs-12 content-div'>
+			<blockquote>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+			</blockquote>
+		</div>
+
+		<h3>引用样式 -- 加脚注</h3>
+		<div class='col-xs-12 content-div'>
+			<blockquote>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+				<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+			</blockquote>
+		</div>
+
+		<h3>引用样式 -- 翻转</h3>
+		<div class='col-xs-12 content-div'>
+			<blockquote  class="blockquote-reverse">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+				<footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+			</blockquote>
+		</div>
+
+		<h3>列表--无序列表</h3>
+		<div class='col-xs-12 content-div'>
+			<ul>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+			</ul>
+		</div>
+
+		<h3>列表--有序列表</h3>
+		<div class='col-xs-12 content-div'>
+			<ol>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+			</ol>
+		</div>
+
+		<h3>列表--无样式列表</h3>
+		<div class='col-xs-12 content-div'>
+			<ul  class="list-unstyled">
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+				<li>Lorem ipsum dolor sit amet</li>
+			</ul>
+		</div>
+
+		<h3>列表--内敛列表</h3>
+		<div class='col-xs-12 content-div'>
+			<ul  class="list-inline">
+				<li>Lorem ipsum</li>
+				<li>Lorem ipsum</li>
+				<li>Lorem ipsum</li>
+				<li>Lorem ipsum</li>
+			</ul>
+		</div>
+
+		<h3>列表--带有简单描述的列表</h3>
+		<div class='col-xs-12 content-div'>
+			<dl>
+				<dt>Description lists</dt>
+				<dd>A description list is perfect for defining terms.</dd>
+
+				<dt>Euismod</dt>
+				<dd>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.Donec id elit non mi porta gravida at eget metus.</dd>
+
+				<dt>Malesuada porta</dt>
+				<dd>Etiam porta sem malesuada magna mollis euismod.</dd>
+			</dl>
+		</div>
+
+		<h3>列表--带有简单描述的横向列表(测试android无效，还需实验)</h3>
+		<div class='col-xs-12 content-div'>
+			<dl  class="dl-horizontal">
+				<dt>Description lists</dt>
+				<dd>A description list</dd>
+
+				<dt>Euismod</dt>
+				<dd>Vestibulum id ligula</dd>
+
+				<dt>Malesuada porta</dt>
+				<dd>Etiam porta sem </dd>
+			</dl>
+		</div>
+		<div class="col-xs-4 col-xs-offset-4 code-bt">
+			<button id="codeBt" type="button" class="btn btn-default btn-block">代码</button>
+		</div>
+	</div>
+
+	<script src="cordova.js"></script>
+	<script src="../framework/mixframework/js/zepto.min.js"></script>
+	<script src="../js/typesetting.js"></script>
+	<script>
+		page.initialize();
+	</script>
 </body>
 </html>
