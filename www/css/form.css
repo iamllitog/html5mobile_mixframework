@@ -1,14 +1,19 @@
 .content-div{
-    border-bottom-width: 1px ;
-    border-bottom-style: solid;
-    border-bottom-color: #000000;
+	border-bottom-width: 1px ;
+	border-bottom-style: solid;
+	border-bottom-color: #000000;
 }
 
 .response-table th{
-    min-width : 150px;
+	min-width : 150px;
+}
+
+blockquote{
+	margin-top: 5px;
 }
 
 .form-bt{
-    margin-top: 10px;
-    margin-bottom: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
+
