@@ -4,7 +4,11 @@
     border-bottom-color: #000000;
 }
 
-.code-bt{
+.response-table th{
+    min-width : 150px;
+}
+
+.form-bt{
     margin-top: 10px;
     margin-bottom: 10px;
 }

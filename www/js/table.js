@@ -3,8 +3,8 @@ var page = {
         this.bindEvents();
     },
     bindEvents: function() {
-        $('#tableBt').click(function(){
-            location.href = 'table.html';
+        $('#formBt').click(function(){
+            location.href = 'form.html';
         });
     }
 };
