@@ -1,59 +1,59 @@
 var SlideView = (function (window, document) {
     var dummyStyle = document.createElement('div').style,
-        vendor = (function () {
-            var vendors = 't,webkitT,MozT,msT,OT'.split(','),
-                t,
-                i = 0,
-                l = vendors.length;
+    vendor = (function () {
+        var vendors = 't,webkitT,MozT,msT,OT'.split(','),
+        t,
+        i = 0,
+        l = vendors.length;
 
-            for (; i < l; i++) {
-                t = vendors[i] + 'ransform';
-                if (t in dummyStyle) {
-                    return vendors[i].substr(0, vendors[i].length - 1);
-                }
+        for (; i < l; i++) {
+            t = vendors[i] + 'ransform';
+            if (t in dummyStyle) {
+                return vendors[i].substr(0, vendors[i].length - 1);
             }
+        }
 
-            return false;
-        })(),
-        cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
+        return false;
+    })(),
+    cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
 
     // Style properties
-        transform = prefixStyle('transform'),
-        transitionDuration = prefixStyle('transitionDuration'),
+    transform = prefixStyle('transform'),
+    transitionDuration = prefixStyle('transitionDuration'),
 
     // Browser capabilities
-        has3d = prefixStyle('perspective') in dummyStyle,
-        hasTouch = 'ontouchstart' in window,
-        hasTransform = !!vendor,
-        hasTransitionEnd = prefixStyle('transition') in dummyStyle,
+    has3d = prefixStyle('perspective') in dummyStyle,
+    hasTouch = 'ontouchstart' in window,
+    hasTransform = !!vendor,
+    hasTransitionEnd = prefixStyle('transition') in dummyStyle,
 
     // Helpers
-        translateZ = has3d ? ' translateZ(0)' : '',
+    translateZ = has3d ? ' translateZ(0)' : '',
 
     // Events
-        resizeEvent = 'onorientationchange' in window ? 'orientationchange' : 'resize',
-        startEvent = hasTouch ? 'touchstart' : 'mousedown',
-        moveEvent = hasTouch ? 'touchmove' : 'mousemove',
-        endEvent = hasTouch ? 'touchend' : 'mouseup',
-        cancelEvent = hasTouch ? 'touchcancel' : 'mouseup',
-        transitionEndEvent = (function () {
-            if (vendor === false) return false;
+    resizeEvent = 'onorientationchange' in window ? 'orientationchange' : 'resize',
+    startEvent = hasTouch ? 'touchstart' : 'mousedown',
+    moveEvent = hasTouch ? 'touchmove' : 'mousemove',
+    endEvent = hasTouch ? 'touchend' : 'mouseup',
+    cancelEvent = hasTouch ? 'touchcancel' : 'mouseup',
+    transitionEndEvent = (function () {
+        if (vendor === false) return false;
 
-            var transitionEnd = {
-                '': 'transitionend',
-                'webkit': 'webkitTransitionEnd',
-                'Moz': 'transitionend',
-                'O': 'oTransitionEnd',
-                'ms': 'MSTransitionEnd'
-            };
+        var transitionEnd = {
+            '': 'transitionend',
+            'webkit': 'webkitTransitionEnd',
+            'Moz': 'transitionend',
+            'O': 'oTransitionEnd',
+            'ms': 'MSTransitionEnd'
+        };
 
-            return transitionEnd[vendor];
-        })(),
-        SlideView = function (element, options) {
-            if (typeof element !== 'string') {
-                throw new Error('first arg must string to select');
-                return;
-            }
+        return transitionEnd[vendor];
+    })(),
+    SlideView = function (element, options) {
+        if (typeof element !== 'string') {
+            throw new Error('first arg must string to select');
+            return;
+        }
 
             //1.得到所有view
             this.wrapper = document.querySelector(element);
@@ -82,7 +82,7 @@ var SlideView = (function (window, document) {
 
             for (var i in options) this.options[i] = options[i];
 
-            this.wrapper.style.overflow = 'hidden';
+                this.wrapper.style.overflow = 'hidden';
             this.wrapper.style.position = 'relative';
 
             this.sliderView.style.cssText += 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
@@ -101,7 +101,7 @@ var SlideView = (function (window, document) {
             if ( vendor == 'O' ) this.slider.addEventListener(transitionEndEvent.toLowerCase(), this, false);
         };
 
-    SlideView.prototype = {
+        SlideView.prototype = {
         //声明打开关闭的模式
         OPEN_MODE_NONE: 100,
         OPEN_MODE_MARGIN: 1000,
@@ -111,31 +111,31 @@ var SlideView = (function (window, document) {
         refreshSize: function () {
             this.wrapperWidth = this.wrapper.clientWidth;
             this.snapThreshold = this.options.snapThreshold === null ?
-                Math.round(this.wrapperWidth * 0.15) :
-                /%/.test(this.options.snapThreshold) ?
-                    Math.round(this.wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
-                    this.options.snapThreshold;
+            Math.round(this.wrapperWidth * 0.15) :
+            /%/.test(this.options.snapThreshold) ?
+            Math.round(this.wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
+            this.options.snapThreshold;
         },
         //处理事件的方法
         handleEvent: function (e) {
             switch (e.type) {
                 case startEvent:
-                    this.__start(e);
-                    break;
+                this.__start(e);
+                break;
                 case moveEvent:
-                    this.__move(e);
-                    break;
+                this.__move(e);
+                break;
                 case cancelEvent:
                 case endEvent:
-                    this.__end(e);
-                    break;
+                this.__end(e);
+                break;
                 case resizeEvent:
-                    this.__resize();
-                    break;
+                this.__resize();
+                break;
                 case transitionEndEvent:
                 case 'otransitionend':
-                    if (e.target == this.slider && !this.options.hastyPageFlip) this.__flip();
-                    break;
+                if (e.target == this.slider && !this.options.hastyPageFlip) this.__flip();
+                break;
             }
         },
 
@@ -148,6 +148,7 @@ var SlideView = (function (window, document) {
         __start: function (e) {
             if (this.initiated) return;
 
+            // />  /^(?:INPUT|TEXTAREA|A)$/.test(e.target.tagName)||e.preventDefault();
             var point = hasTouch ? e.touches[0] : e;
 
             this.initiated = true;
@@ -162,6 +163,7 @@ var SlideView = (function (window, document) {
         },
 
         __move: function (e) {
+            e.preventDefault();
             if (!this.initiated) return;
             var point = hasTouch ? e.touches[0] : e;
             this.endX = point.pageX;
@@ -183,40 +185,56 @@ var SlideView = (function (window, document) {
             }
 
             //越界判断
-//            if(this.x < -this.rightView.clientWidth){
-//                this.newX = -this.rightView.clientWidth;
-//            }else if(this.x > this.leftView.clientWidth){
-//                this.newX = this.leftView.clientWidth;
-//            }
+            if(this.newX <-this.rightView.clientWidth || this.newX > this.leftView.clientWidth){
+              return;
+          }
 
-            this.__pos(this.newX);
-        },
+          this.__pos(this.newX);
+      },
 
-        __end: function (e) {
-            if (!this.initiated) return;
-            this.initiated = false;
-        },
+      __end: function (e) {
+        if (!this.initiated) return;
+        this.initiated = false;
+        var point = hasTouch ? e.changedTouches[0] : e,
+        distX = point.pageX - this.startX;
+        this.newX = this.x +  distX;
 
-        __event: function (type) {
-            var ev = document.createEvent("Event");
 
-            ev.initEvent('swipeview-' + type, true, true);
+        this.sliderView.style[transitionDuration] = Math.floor(300 * Math.abs(distX)/ this.snapThreshold) + 'ms';
 
-            this.wrapper.dispatchEvent(ev);
-        },
-        __pos: function (x) {
-            this.x = x;
-            this.sliderView.style[transform] = 'translate(' + x + 'px,0)' + translateZ;
-        }
-    }
+        if (this.newX < -this.snapThreshold) {
+                    //显示右面
+this.__pos(-this.rightView.clientWidth);
+                    return;
+                }else if(this.newX > this.snapThreshold){
+                //显示左面
+                this.__pos(this.leftView.clientWidth);
+            }else{
+//显示中间
+ this.__pos(0);
+}
+},
 
-    function prefixStyle(style) {
-        if (vendor === '') return style;
+__event: function (type) {
+    var ev = document.createEvent("Event");
 
-        style = style.charAt(0).toUpperCase() + style.substr(1);
-        return vendor + style;
-    }
+    ev.initEvent('swipeview-' + type, true, true);
 
-    return SlideView;
+    this.wrapper.dispatchEvent(ev);
+},
+__pos: function (x) {
+    this.x = x;
+    this.sliderView.style[transform] = 'translate(' + x + 'px,0)' + translateZ;
+}
+}
+
+function prefixStyle(style) {
+    if (vendor === '') return style;
+
+    style = style.charAt(0).toUpperCase() + style.substr(1);
+    return vendor + style;
+}
+
+return SlideView;
 
 })(window, document);
