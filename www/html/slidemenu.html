@@ -1,16 +1,26 @@
 <html>
 	<head>
-		<style type="text/css">
-			#slidewrapper{
-				width: 100%;
-				height: 100%;
-			}
-		</style>
+        <script src="../framework/mixframework/js/slideview.js"></script>
+        <style>
+            #slidewrapper{
+                width: 100%;
+                height: 500px;
+                border-bottom-color: green;
+                border-width: 1px;
+            }
+        </style>
 	</head>
 	<body>
 		<div id='slidewrapper'>
-			<div data-slidemenu='menu'></div>
-			<div data-slidemenu='content'></div>
+            <div data-slide-slider>
+                <div id="a" data-slide-leftview style="width: 300px;background-color: red;"></div>
+                <div id="b" data-slide-content style="width: 100%;background-color: black"></div>
+                <div id="c" data-slide-rightview style="width: 350px;background-color: blue;"></div>
+            </div>
 		</div>
+
+    <script>
+                    var slideView = new SlideView('#slidewrapper');
+    </script>
 	</body>
 </html>

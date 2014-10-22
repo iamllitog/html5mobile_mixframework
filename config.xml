@@ -7,6 +7,6 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="html/swipePageTest.html" />
+    <content src="html/slidemenu.html" />
     <access origin="*" />
 </widget>
