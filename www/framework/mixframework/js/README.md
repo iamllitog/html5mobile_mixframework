@@ -1,6 +1,29 @@
 #js控件
 
-##SlideView
+##SlideView()
+
+###使用方法
+
+1.引入
+
+> `<script src="../framework/mixframework/js/slideview.js"></script>`
+
+2.在html标签中嵌入
+
+`
+<div id='slidewrapper'>
+    <div data-slide-slider>
+        <div data-slide-leftview style="width: 180px;"></div>
+        <div data-slide-content style="width: 100%;"></div>
+        <div data-slide-rightview style="width: 100px;"></div>
+    </div>
+</div>
+`
+
+
+3.在body结束标签前初始化
+
+> `var slideView = new SlideView('#slidewrapper');`
 
 ###初始化参数
 
