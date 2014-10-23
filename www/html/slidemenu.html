@@ -8,19 +8,63 @@
                 border-bottom-color: green;
                 border-width: 1px;
             }
+            .buttongroup {
+                text-align: center;
+            }
         </style>
 	</head>
 	<body>
 		<div id='slidewrapper'>
             <div data-slide-slider>
                 <div data-slide-leftview style="width: 180px;background-color: red;"></div>
-                <div data-slide-content style="width: 100%;background-color: black"></div>
+                <div data-slide-content style="width: 100%;">
+                    <div class="buttongroup">
+                    <button id="leftBt">toggle Left</button>
+                    <button id="rightBt">toggle Right</button>
+                    </div>
+                </div>
                 <div data-slide-rightview style="width: 100px;background-color: blue;"></div>
             </div>
 		</div>
 
     <script>
-                    var slideView = new SlideView('#slidewrapper');
+        var slideView = new SlideView('#slidewrapper'
+//        ,{
+//            openSlideMode : SlideView.OPEN_MODE_ALL,
+//            closeSlideMode : SlideView.CLOSE_MODE_NONE
+//        }
+        );
+        var rightBt = document.getElementById('rightBt'),
+                leftBt = document.getElementById('leftBt');
+
+        rightBt.addEventListener('click',function(event){
+            slideView.toggleRightView();
+        });
+        leftBt.addEventListener('click',function(event){
+            slideView.toggleLeftView();
+        });
+
+        var slideWarpper = document.getElementById('slidewrapper');
+
+        slideWarpper.addEventListener('slideview-movestart',function(event){
+            console.log('i am touch');
+            console.log(slideView.getCurrentViewTag());
+        });
+        slideWarpper.addEventListener('slideview-movein-leftview',function(event){
+            console.log('i am in left');
+        });
+        slideWarpper.addEventListener('slideview-movein-rightview',function(event){
+            console.log('i am in right');
+        });
+        slideWarpper.addEventListener('slideview-movein-centerview',function(event){
+            console.log('i am in center');
+        });
+        slideWarpper.addEventListener('slideview-move',function(event){
+            console.log('i am in move');
+        });
+        slideWarpper.addEventListener('slideview-moveend',function(event){
+            console.log('i am move end');
+        });
     </script>
 	</body>
 </html>
