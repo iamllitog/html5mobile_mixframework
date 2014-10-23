@@ -14,6 +14,9 @@
     >> + SlideView.CLOSE_MODE_NONE : 手势划动无
     >> + SlideView.CLOSE_MODE_ALL : 有手势划动
 
++ snapThreshold
+    > 在划动多少距离后，触发menu弹出或隐藏，接受百分比(20%)和像素(50)
+
 ###方法
 
 + toggleLeftView()
