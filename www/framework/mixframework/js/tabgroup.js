@@ -57,28 +57,11 @@ var TabGroup = (function (window, document) {
 
             //1.得到所有view
             this.wrapper = document.querySelector(element);
+            this.sliderView = document.querySelector(element + " > [data-tabgroup-tabviews] ");
 
-            var list = document.querySelectorAll(element + " > [data-tabgroup-tabviews] > [data-tabgroup-tabid]");
-
-            for(var i= 0,j=list.length;i<j;i++){
-                alert( list[i].getAttribute('data-tabgroup-tabid'));
-            }
-
-            if (this.leftView == null || typeof this.leftView == 'undefined') {
-                this.leftView = document.createElement('div');
-                this.sliderView.appendChild(this.leftView);
-                this.leftView.style.width = 0;
-            }
-
-            if (this.rightView == null || typeof this.rightView == 'undefined') {
-                this.rightView = document.createElement('div');
-                this.sliderView.appendChild(this.rightView);
-                this.rightView.style.width = 0;
-            }
+            var views = document.querySelectorAll(element + " > [data-tabgroup-tabviews] > [data-tabgroup-tabid]");
 
             this.options = {
-                openSlideMode: SlideView.OPEN_MODE_ALL,
-                closeSlideMode: SlideView.OPEN_MODE_ALL,
                 snapThreshold: null //滑动多少距离后出现menu
             };
 
@@ -88,9 +71,19 @@ var TabGroup = (function (window, document) {
             this.wrapper.style.position = 'relative';
 
             this.sliderView.style.cssText += ';position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-            this.contentView.style.cssText += ';'+cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;';
-            this.leftView.style.cssText += ';' + cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;left:-' + this.leftView.style.width;
-            this.rightView.style.cssText += ';' + cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;right:-' + this.rightView.style.width;
+            for(var i= 0,j=views.length;i<j;i++){
+                var view = views[i];
+                var tabId = view.getAttribute('data-tabgroup-tabid');
+                var tabBt = document.querySelector(element + " > [data-tabgroup-tabbuttons] > [data-tabgroup-tabid="+tabId+"]");
+                view.style.cssText += ';'+cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:'+this.wrapper.clientWidth + ';';
+                view.style.left = i*this.wrapper.clientWidth;
+                this.views[tabId] = {
+                    index : i,
+                    tabBt : tabBt,
+                    view : view
+                };
+            }
+            views = null;
 
             this.refreshSize();
 
@@ -101,6 +94,7 @@ var TabGroup = (function (window, document) {
         };
 
     TabGroup.prototype = {
+        views : {},
         refreshSize: function () {
             var wrapperWidth = this.wrapper.clientWidth;
             this.snapThreshold = this.options.snapThreshold === null ?
@@ -108,6 +102,10 @@ var TabGroup = (function (window, document) {
                 /%/.test(this.options.snapThreshold) ?
                     Math.round(wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
                     this.options.snapThreshold;
+            for(var i in this.views){
+                this.views[i].view.style.width = wrapperWidth;
+this.views[i].view.style.left = this.views[i].index * wrapperWidth;
+            }
         },
         //处理事件的方法
         handleEvent: function (e) {

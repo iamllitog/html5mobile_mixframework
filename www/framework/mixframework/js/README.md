@@ -1,6 +1,6 @@
 #js控件
 
-##SlideView()
+##SlideView
 
 ###使用方法
 
