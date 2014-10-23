@@ -75,8 +75,8 @@ var TabGroup = (function (window, document) {
                 var view = views[i];
                 var tabId = view.getAttribute('data-tabgroup-tabid');
                 var tabBt = document.querySelector(element + " > [data-tabgroup-tabbuttons] > [data-tabgroup-tabid="+tabId+"]");
-                view.style.cssText += ';'+cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:'+this.wrapper.clientWidth + ';';
-                view.style.left = i*this.wrapper.clientWidth;
+                view.style.cssText += ';'+cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:100%;';
+                view.style.left = i*100 + '%';
                 this.views[tabId] = {
                     index : i,
                     tabBt : tabBt,
@@ -102,10 +102,10 @@ var TabGroup = (function (window, document) {
                 /%/.test(this.options.snapThreshold) ?
                     Math.round(wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
                     this.options.snapThreshold;
-            for(var i in this.views){
-                this.views[i].view.style.width = wrapperWidth;
-this.views[i].view.style.left = this.views[i].index * wrapperWidth;
-            }
+//             for(var i in this.views){
+//                 this.views[i].view.style.width = wrapperWidth;
+// this.views[i].view.style.left = this.views[i].index * wrapperWidth;
+//             }
         },
         //处理事件的方法
         handleEvent: function (e) {
