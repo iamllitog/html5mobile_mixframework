@@ -110,44 +110,56 @@
 
 3.在body结束标签前初始化
 
-    > `var TabGroup = new TabGroup('#tabgroupwrapper');`
+> `var TabGroup = new TabGroup('#tabgroupwrapper');`
 
-    ###初始化参数
+###初始化参数
 
-    + snapThreshold
-        > 在划动多少距离后，触发menu弹出或隐藏，接受百分比(20%)和像素(50)
++ snapThreshold
 
-    + currentViewId
-        > 设置当前显示界面的id
+> 在划动多少距离后，触发menu弹出或隐藏，接受百分比(20%)和像素(50)
 
-    + currentViewIndex
-        > 设置当前显示view的index,currentViewId和currentViewIndex都设置时,以currentViewId为准
++ currentViewId
 
-    + moveMode
-        > 设置切换page的模式
-        >> TabGroup.MOVE_MODE_SLIDE 划动切换
-        >> TabGroup.MOVE_MODE_NODE 禁止划动切换
+> 设置当前显示界面的id
 
-    ###方法
++ currentViewIndex
 
-    + goToPageById(pageId)
-        > 根据Id跳转到指定view
+> 设置当前显示view的index,currentViewId和currentViewIndex都设置时,以currentViewId为准
 
-    + goToPageByIndex(index)
-        > 根据index跳转到指定view
++ moveMode
 
-    + animationToPageById(pageId)
-        > 根据Id跳转到指定view(动画方式)
+> 设置切换page的模式
 
-    + animationToPageByIndex(index)
-        > 根据index跳转到指定view(动画方式)
+>> TabGroup.MOVE_MODE_SLIDE 划动切换
 
-    + getCurrentViewId()
-        > 得到当前显示的view的id
+>> TabGroup.MOVE_MODE_NODE 禁止划动切换
 
-    + getCurrentViewIndex()
-        > 得到当前显示的view的index
+###方法
 
-    ###属性
++ goToPageById(pageId)
 
-    ###事件
+> 根据Id跳转到指定view
+
++ goToPageByIndex(index)
+
+> 根据index跳转到指定view
+
++ animationToPageById(pageId)
+
+> 根据Id跳转到指定view(动画方式)
+
++ animationToPageByIndex(index)
+
+> 根据index跳转到指定view(动画方式)
+
++ getCurrentViewId()
+
+> 得到当前显示的view的id
+
++ getCurrentViewIndex()
+
+> 得到当前显示的view的index
+
+###属性
+
+###事件
