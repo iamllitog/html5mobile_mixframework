@@ -10,33 +10,140 @@
     }
     #tabgroupwrapper > [data-tabgroup-tabviews]{
         height: 90%;
+        max-height: 90%;
     }
     #tabgroupwrapper > [data-tabgroup-tabbuttons]{
         height: 10%;
+        max-height: 10%;
+        width : 100%;
+    }
+    #tabgroupwrapper > [data-tabgroup-tabbuttons] > [data-tabgroup-tabid]{
+        height: 100%;
+    }
+
+    .tabBt > div{
+        width: 100%;
+        height: 100%;
+    }
+
+    .defaultBtA{
+        background-color: red;
+    }
+    .defaultBtA > div {
+        background-image: url("../img/a_off.png");
+    }
+    .activeBtA{
+        background-color: white;
+    }
+    .activeBtA > div {
+        background-image: url("../img/a_on.png");
+    }
+
+    .defaultBtB{
+        background-color: black;
+    }
+    .defaultBtB > div {
+        background-image: url("../img/b_off.png");
+    }
+    .activeBtB{
+        background-color: white;
+    }
+    .activeBtB > div {
+        background-image: url("../img/b_on.png");
+    }
+
+
+    .defaultBtC{
         background-color: blue;
+    }
+    .defaultBtC > div {
+        background-image: url("../img/c_off.png");
+    }
+    .activeBtC{
+        background-color: white;
+    }
+    .activeBtC > div {
+        background-image: url("../img/c_on.png");
+    }
+
+    .defaultBtD{
+        background-color: green;
+    }
+    .defaultBtD > div {
+        background-image: url("../img/d_off.png");
+    }
+    .activeBtD{
+        background-color: white;
+    }
+    .activeBtD > div {
+        background-image: url("../img/d_on.png");
     }
 </style>
 <body>
 <div id='tabgroupwrapper'>
     <div data-tabgroup-tabviews>
-        <div data-tabgroup-tabid='a' style='background-color: red'></div>
-        <div data-tabgroup-tabid='b' style='background-color: black'></div>
-        <div data-tabgroup-tabid='c' style='background-color: blue'></div>
+        <div data-tabgroup-tabid='a' style='background-color: red'>
+            <button id="changeCPage">去c页</button>
+            <button id="changeTwoPage">去第二页</button>
+            <button id="anmCPage">动画去c页</button>
+            <button id="anmTwoPage">动画去第二页</button>
+        </div>
+        <div data-tabgroup-tabid='b' style='background-color: black'>
+            <button id="getIndex">得到当前页序号</button>
+        </div>
+        <div data-tabgroup-tabid='c' style='background-color: blue'>
+            <button id="getId">得到当前页id</button>
+        </div>
         <div data-tabgroup-tabid='d' style='background-color: green'></div>
-        <div data-tabgroup-tabid='e' style='background-color: pink'></div>
     </div>
 
-    <div  data-tabgroup-tabbuttons>
-        <div data-tabgroup-tabid="a"></div>
-        <div data-tabgroup-tabid="b"></div>
-        <div data-tabgroup-tabid="c"></div>
-        <div data-tabgroup-tabid="d"></div>
-        <div data-tabgroup-tabid="e"></div>
+    <div data-tabgroup-tabbuttons>
+        <div data-tabgroup-tabid="a" class="col-xs-3 tabBt" data-tabgroup-activebtclass="activeBtA" data-tabgroup-defaultbtclass="defaultBtA">
+            <div></div>
+        </div>
+        <div data-tabgroup-tabid="b" class="col-xs-3 tabBt" data-tabgroup-activebtclass="activeBtB" data-tabgroup-defaultbtclass="defaultBtB">
+            <div></div>
+        </div>
+        <div data-tabgroup-tabid="c" class="col-xs-3 tabBt" data-tabgroup-activebtclass="activeBtC" data-tabgroup-defaultbtclass="defaultBtC">
+            <div></div>
+        </div>
+        <div data-tabgroup-tabid="d" class="col-xs-3 tabBt" data-tabgroup-activebtclass="activeBtD" data-tabgroup-defaultbtclass="defaultBtD">
+            <div></div>
+        </div>
     </div>
 </div>
 
 <script>
-    var tabGroup = new TabGroup('#tabgroupwrapper');
+    var tabGroup = new TabGroup('#tabgroupwrapper',{
+        snapThreshold : '20%',
+//        currentViewId : 'c',
+//        currentViewIndex : 1,
+//        moveMode : TabGroup.MOVE_MODE_NODE
+    });
+
+    document.getElementById('changeCPage').addEventListener('click',function(event){
+        tabGroup.goToPageById('c');
+    });
+
+    document.getElementById('changeTwoPage').addEventListener('click',function(event){
+        tabGroup.goToPageByIndex(1);
+    });
+
+    document.getElementById('anmCPage').addEventListener('click',function(event){
+        tabGroup.animationToPageById('c');
+    });
+
+    document.getElementById('anmTwoPage').addEventListener('click',function(event){
+        tabGroup.animationToPageByIndex(1);
+    });
+
+    document.getElementById('getIndex').addEventListener('click',function(event){
+        alert(tabGroup.getCurrentViewIndex());
+    });
+
+    document.getElementById('getId').addEventListener('click',function(event){
+        alert(tabGroup.getCurrentViewId());
+    });
 </script>
 </body>
 </html>
