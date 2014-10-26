@@ -114,6 +114,8 @@
 </div>
 
 <script>
+    var  hasTouch = 'ontouchstart' in window;
+
     var tabGroup = new TabGroup('#tabgroupwrapper',{
         snapThreshold : '20%',
 //        currentViewId : 'c',
@@ -143,6 +145,17 @@
 
     document.getElementById('getId').addEventListener('click',function(event){
         alert(tabGroup.getCurrentViewId());
+    });
+
+     var tabgroupWarpper = document.getElementById('tabgroupwrapper');
+
+    window.addEventListener('tabgroup-movestart',function(event){
+    //     var output = "";
+    // for(var i in event){  
+    //     var property=event[i];  
+    //     output+=i+" = "+property+"\n"; 
+    // }  
+        console.log("tabgroup-movestart:"+event.data.pageX);
     });
 </script>
 </body>

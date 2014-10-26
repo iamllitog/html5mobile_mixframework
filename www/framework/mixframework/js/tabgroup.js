@@ -218,6 +218,9 @@ var TabGroup = (function (window, document) {
             if (this.options.moveMode == TabGroup.MOVE_MODE_NODE) {
                 return;
             }
+
+            this.__event('movestart',e);
+
             this.initiated = true;
             var point = hasTouch ? e.touches[0] : e;
             this.startX = point.pageX;
@@ -312,10 +315,11 @@ var TabGroup = (function (window, document) {
             this.__pos(-this.currentViewIndex * this.wrapperWidth);
         },
 
-        __event: function (type) {
+        __event: function (type,data) {
             var ev = document.createEvent("Event");
 
             ev.initEvent('tabgroup-' + type, true, true);
+            ev.data = data;
 
             this.wrapper.dispatchEvent(ev);
         },

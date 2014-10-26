@@ -163,3 +163,23 @@
 ###属性
 
 ###事件
+
++ tabgroup-movestart
+
+    > 开始触摸
+
++ tabgroup-movein
+
+    > 划动进入某个界面
+
++ tabgroup-move
+
+    > 划动时
+
++ tabgroup-moveend
+
+    > 划动结束
+
++ tabgroup-buttonclick
+
+    > 按钮点击
