@@ -1,60 +1,60 @@
 var TabGroup = (function (window, document) {
     var dummyStyle = document.createElement('div').style,
-        vendor = (function () {
-            var vendors = 't,webkitT,MozT,msT,OT'.split(','),
-                t,
-                i = 0,
-                l = vendors.length;
+    vendor = (function () {
+        var vendors = 't,webkitT,MozT,msT,OT'.split(','),
+        t,
+        i = 0,
+        l = vendors.length;
 
-            for (; i < l; i++) {
-                t = vendors[i] + 'ransform';
-                if (t in dummyStyle) {
-                    return vendors[i].substr(0, vendors[i].length - 1);
-                }
+        for (; i < l; i++) {
+            t = vendors[i] + 'ransform';
+            if (t in dummyStyle) {
+                return vendors[i].substr(0, vendors[i].length - 1);
             }
+        }
 
-            return false;
-        })(),
-        cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
+        return false;
+    })(),
+    cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
 
     // Style properties
-        transform = prefixStyle('transform'),
-        transitionDuration = prefixStyle('transitionDuration'),
+    transform = prefixStyle('transform'),
+    transitionDuration = prefixStyle('transitionDuration'),
 
     // Browser capabilities
-        has3d = prefixStyle('perspective') in dummyStyle,
-        hasTouch = 'ontouchstart' in window,
-        hasTransform = !!vendor,
-        hasTransitionEnd = prefixStyle('transition') in dummyStyle,
+    has3d = prefixStyle('perspective') in dummyStyle,
+    hasTouch = 'ontouchstart' in window,
+    hasTransform = !!vendor,
+    hasTransitionEnd = prefixStyle('transition') in dummyStyle,
 
     // Helpers
-        translateZ = has3d ? ' translateZ(0)' : '',
+    translateZ = has3d ? ' translateZ(0)' : '',
 
     // Events
-        resizeEvent = 'onorientationchange' in window ? 'orientationchange' : 'resize',
-        startEvent = hasTouch ? 'touchstart' : 'mousedown',
-        moveEvent = hasTouch ? 'touchmove' : 'mousemove',
-        endEvent = hasTouch ? 'touchend' : 'mouseup',
-        cancelEvent = hasTouch ? 'touchcancel' : 'mouseup',
-        tabBtClickEvent = 'click',
-        transitionEndEvent = (function () {
-            if (vendor === false) return false;
+    resizeEvent = 'onorientationchange' in window ? 'orientationchange' : 'resize',
+    startEvent = hasTouch ? 'touchstart' : 'mousedown',
+    moveEvent = hasTouch ? 'touchmove' : 'mousemove',
+    endEvent = hasTouch ? 'touchend' : 'mouseup',
+    cancelEvent = hasTouch ? 'touchcancel' : 'mouseup',
+    tabBtClickEvent = 'click',
+    transitionEndEvent = (function () {
+        if (vendor === false) return false;
 
-            var transitionEnd = {
-                '': 'transitionend',
-                'webkit': 'webkitTransitionEnd',
-                'Moz': 'transitionend',
-                'O': 'oTransitionEnd',
-                'ms': 'MSTransitionEnd'
-            };
+        var transitionEnd = {
+            '': 'transitionend',
+            'webkit': 'webkitTransitionEnd',
+            'Moz': 'transitionend',
+            'O': 'oTransitionEnd',
+            'ms': 'MSTransitionEnd'
+        };
 
-            return transitionEnd[vendor];
-        })(),
-        TabGroup = function (element, options) {
-            if (typeof element !== 'string') {
-                throw new Error('first arg must string to select');
-                return;
-            }
+        return transitionEnd[vendor];
+    })(),
+    TabGroup = function (element, options) {
+        if (typeof element !== 'string') {
+            throw new Error('first arg must string to select');
+            return;
+        }
 
             //1.得到所有view
             this.wrapper = document.querySelector(element);
@@ -71,7 +71,7 @@ var TabGroup = (function (window, document) {
 
             for (var i in options) this.options[i] = options[i];
 
-            this.wrapper.style.overflow = 'hidden';
+                this.wrapper.style.overflow = 'hidden';
             this.wrapper.style.position = 'relative';
 
             this.sliderView.style.cssText += ';position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
@@ -120,23 +120,23 @@ var TabGroup = (function (window, document) {
             }
         };
 
-    TabGroup.MOVE_MODE_SLIDE = 1000;
-    TabGroup.MOVE_MODE_NODE = -1000;
-    TabGroup.CHANGE_PAGE_TIME = 300;
+        TabGroup.MOVE_MODE_SLIDE = 1000;
+        TabGroup.MOVE_MODE_NODE = -1000;
+        TabGroup.CHANGE_PAGE_TIME = 300;
 
-    TabGroup.prototype = {
-        views: {},
-        tabIds: [],
-        currentViewIndex: 0,
-        x: 0,
-        refreshSize: function () {
-            this.wrapperWidth = this.wrapper.clientWidth;
-            this.snapThreshold = this.options.snapThreshold === null ?
+        TabGroup.prototype = {
+            views: {},
+            tabIds: [],
+            currentViewIndex: 0,
+            x: 0,
+            refreshSize: function () {
+                this.wrapperWidth = this.wrapper.clientWidth;
+                this.snapThreshold = this.options.snapThreshold === null ?
                 Math.round(this.wrapperWidth * 0.15) :
                 /%/.test(this.options.snapThreshold) ?
-                    Math.round(this.wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
-                    this.options.snapThreshold;
-        },
+                Math.round(this.wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
+                this.options.snapThreshold;
+            },
 
         //根据pageid跳转到对应界面
         goToPageById: function (pageId) {
@@ -177,21 +177,21 @@ var TabGroup = (function (window, document) {
         handleEvent: function (e) {
             switch (e.type) {
                 case startEvent:
-                    this.__start(e);
-                    break;
+                this.__start(e);
+                break;
                 case moveEvent:
-                    this.__move(e);
-                    break;
+                this.__move(e);
+                break;
                 case cancelEvent:
                 case endEvent:
-                    this.__end(e);
-                    break;
+                this.__end(e);
+                break;
                 case resizeEvent:
-                    this.__resize();
-                    break;
+                this.__resize();
+                break;
                 case tabBtClickEvent:
-                    this.__tabBtclick(e);
-                    break;
+                this.__tabBtclick(e);
+                break;
             }
         },
 
@@ -281,7 +281,7 @@ var TabGroup = (function (window, document) {
             this.initiated = false;
 
             var point = hasTouch ? e.changedTouches[0] : e,
-                distX = point.pageX - this.beginX;
+            distX = point.pageX - this.beginX;
 
             this.sliderView.style[transitionDuration] = Math.floor(100 * Math.abs(distX) / this.snapThreshold) + 'ms';
 
@@ -318,8 +318,14 @@ var TabGroup = (function (window, document) {
         __event: function (type,data) {
             var ev = document.createEvent("Event");
 
+            for(var i in data){
+                var propertyName = i;
+                if(propertyName == 'returnValue') continue;
+                var property=data[i];
+                if(typeof ev[propertyName] != 'function' && propertyName != "returnValue")
+                    ev[propertyName] = property;
+            }
             ev.initEvent('tabgroup-' + type, true, true);
-            ev.data = data;
 
             this.wrapper.dispatchEvent(ev);
         },
