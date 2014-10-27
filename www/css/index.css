@@ -1,0 +1,46 @@
+html,body {
+    height: 100%;
+}
+
+/*大体结构*/
+#slidewrapper{
+    height: 100%;
+    width: 100%;
+}
+#tabgroupwrapper{
+    height: 100%;
+}
+#tabgroupwrapper > [data-tabgroup-tabviews] {
+    height: 84%;
+    max-height: 84%;
+}
+#tabgroupwrapper > [data-tabgroup-tabbuttons]{
+    height: 8%;
+    max-height: 8%;
+}
+#tabgroupwrapper > .header{
+    height: 8%;
+    max-height: 8%;
+}
+/*头部导航*/
+.header{
+    background-color: #1eb0e9;
+}
+
+/*底部导航*/
+.bottom-text span{
+    display: block;
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 1.2em;
+}
+.bottom-text span:first-child{
+    padding-top: 8px;
+}
+
+.tabbt_active{
+    color: #1eb0e9;
+}
+.tabbt_default{
+    color: gainsboro;
+}

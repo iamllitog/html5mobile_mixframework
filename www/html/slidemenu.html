@@ -49,7 +49,7 @@
         var slideWarpper = document.getElementById('slidewrapper');
 
         slideWarpper.addEventListener('slideview-movestart',function(event){
-            console.log('i am touch');
+            console.log('i am touch' + event.pageX);
             console.log(slideView.getCurrentViewTag());
         });
         slideWarpper.addEventListener('slideview-movein-leftview',function(event){
@@ -62,10 +62,10 @@
             console.log('i am in center');
         });
         slideWarpper.addEventListener('slideview-move',function(event){
-            console.log('i am in move');
+            console.log('i am in move' + event.pageX);
         });
         slideWarpper.addEventListener('slideview-moveend',function(event){
-            console.log('i am move end');
+            console.log('i am move end' + event.pageX);
         });
     </script>
 	</body>

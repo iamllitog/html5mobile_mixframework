@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--css-->
+    <link rel="stylesheet" href="../framework/mixframework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <!--js插件-->
+    <script src="../framework/mixframework/js/slideview.js"></script>
+    <script src="../framework/mixframework/js/tabgroup.js"></script>
+    <title>Hello World</title>
+</head>
+<body>
+<div id='slidewrapper'>
+    <div data-slide-slider>
+        <div data-slide-leftview style="width: 180px;background-color: black;"></div>
+        <div data-slide-content style="width: 100%;">
+            <div id="tabgroupwrapper">
+                <div class="header"></div>
+
+                <div data-tabgroup-tabviews>
+                    <div data-tabgroup-tabid='css' style="width: 180px;background-color: #ffff00;"></div>
+                    <div data-tabgroup-tabid='components' style="width: 180px;background-color: blue;"></div>
+                    <div data-tabgroup-tabid='jsplugins' style="width: 180px;background-color: gray;"></div>
+                </div>
+
+                <div data-tabgroup-tabbuttons>
+                    <div class="col-xs-4 bottom-text" data-tabgroup-tabid="css"
+                         data-tabgroup-activebtclass="tabbt_active" data-tabgroup-defaultbtclass="tabbt_default">
+                        <span class="glyphicon glyphicon-th-large"></span>
+                        <span>css</span>
+                    </div>
+                    <div class="col-xs-4 bottom-text" data-tabgroup-tabid="components"
+                         data-tabgroup-activebtclass="tabbt_active" data-tabgroup-defaultbtclass="tabbt_default">
+                        <span class="glyphicon glyphicon-briefcase"></span>
+                        <span>components</span>
+                    </div>
+                    <div class="col-xs-4 bottom-text" data-tabgroup-tabid="jsplugins"
+                         data-tabgroup-activebtclass="tabbt_active" data-tabgroup-defaultbtclass="tabbt_default">
+                        <span class="glyphicon glyphicon-link"></span>
+                        <span>jsplugins</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="cordova.js"></script>
+<script src="../framework/mixframework/js/zepto.min.js"></script>
+<script src="../js/index.js"></script>
+<script>
+    page.initialize();
+</script>
+</body>
+</html>

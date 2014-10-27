@@ -111,13 +111,13 @@ var SlideView = (function (window, document) {
         x: 0,
         //开关左侧view
         toggleLeftView : function(){
-            this.sliderView.style[transitionDuration] = Math.floor(250 * Math.abs(this.leftView.clientWidth) / this.snapThreshold) + 'ms';
+            this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth) / this.snapThreshold) + 'ms';
             if(this.currentViewTag == this.CURRENT_LEFT_VIEW){
                 this.__pos(0);
                 this.currentViewTag = this.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
             }else{
-                this.__pos(this.leftView.clientWidth);
+                this.__pos(this.leftViewWidth);
                 this.currentViewTag = this.CURRENT_LEFT_VIEW;
                 this.__event('movein-leftview');
             }
@@ -125,13 +125,13 @@ var SlideView = (function (window, document) {
 
         //开关右侧view
         toggleRightView : function(){
-            this.sliderView.style[transitionDuration] = Math.floor(250 * Math.abs(this.rightView.clientWidth) / this.snapThreshold) + 'ms';
+            this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth) / this.snapThreshold) + 'ms';
             if(this.currentViewTag == this.CURRENT_RIGHT_VIEW){
                 this.__pos(0);
                 this.currentViewTag = this.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
             }else{
-                this.__pos(-this.rightView.clientWidth);
+                this.__pos(-this.rightViewWidth);
                 this.currentViewTag = this.CURRENT_RIGHT_VIEW;
                 this.__event('movein-rightview');
             }
@@ -141,11 +141,14 @@ var SlideView = (function (window, document) {
             return this.currentViewTag;
         },
         refreshSize: function () {
-            var wrapperWidth = this.wrapper.clientWidth;
+            this.wrapperWidth = this.wrapper.clientWidth;
+            this.leftViewWidth = this.leftView.clientWidth;
+            this.rightViewWidth = this.rightView.clientWidth;
+
             this.snapThreshold = this.options.snapThreshold === null ?
-                Math.round(wrapperWidth * 0.15) :
+                Math.round(this.wrapperWidth * 0.15) :
                 /%/.test(this.options.snapThreshold) ?
-                    Math.round(wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
+                    Math.round(this.wrapperWidth * this.options.snapThreshold.replace('%', '') / 100) :
                     this.options.snapThreshold;
         },
         //处理事件的方法
@@ -176,8 +179,9 @@ var SlideView = (function (window, document) {
         __start: function (e) {
             if (this.initiated) return;
 
-            // />  /^(?:INPUT|TEXTAREA|A)$/.test(e.target.tagName)||e.preventDefault();
             var point = hasTouch ? e.touches[0] : e;
+
+            this.__event('movestart',e);
 
             this.initiated = true;
             this.startX = point.pageX;
@@ -188,8 +192,6 @@ var SlideView = (function (window, document) {
             this.touchdistanceY = 0;
 
             this.sliderView.style[transitionDuration] = '0s';
-
-            this.__event('movestart');
         },
 
         __move: function (e) {
@@ -203,7 +205,7 @@ var SlideView = (function (window, document) {
                 return;
             }
 
-            this.__event('move');
+            this.__event('move',e);
             var point = hasTouch ? e.touches[0] : e;
             this.endX = point.pageX;
             this.endY = point.pageY;
@@ -225,7 +227,7 @@ var SlideView = (function (window, document) {
             e.preventDefault();
 
             //越界判断
-            if (this.newX < -this.rightView.clientWidth || this.newX > this.leftView.clientWidth) {
+            if (this.newX < -this.rightViewWidth || this.newX > this.leftViewWidth) {
                 return;
             }
 
@@ -245,44 +247,57 @@ var SlideView = (function (window, document) {
             var point = hasTouch ? e.changedTouches[0] : e,
                 distX = point.pageX - this.startPointX;
 
-            this.__event('moveend');
+            this.__event('moveend',e);
 
-            this.sliderView.style[transitionDuration] = Math.floor(250 * Math.abs(distX) / this.snapThreshold) + 'ms';
-
+//            alert(point.pageX);
             if(this.currentViewTag == this.CURRENT_LEFT_VIEW){
-                if(distX < 0 && Math.abs(distX) > this.snapThreshold){
+                if((distX < 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX > this.leftViewWidth)){
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
                     this.__pos(0);
                     this.currentViewTag = this.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
                 }else{
-                    this.__pos(this.leftView.clientWidth);
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
+                    this.__pos(this.leftViewWidth);
                 }
             }else if(this.currentViewTag == this.CURRENT_CENTER_VIEW){
                 if(distX < 0 && Math.abs(distX) > this.snapThreshold){
-                    this.__pos(-this.rightView.clientWidth);
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
+                    this.__pos(-this.rightViewWidth);
                     this.currentViewTag = this.CURRENT_RIGHT_VIEW;
                     this.__event('movein-rightview');
                 }else if(distX > 0 && Math.abs(distX) > this.snapThreshold){
-                    this.__pos(this.leftView.clientWidth);
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
+                    this.__pos(this.leftViewWidth);
                     this.currentViewTag = this.CURRENT_LEFT_VIEW;
                     this.__event('movein-leftview');
                 }else{
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
                     this.__pos(0);
                 }
             }else{
-                if(distX > 0 && Math.abs(distX) > this.snapThreshold){
+                if((distX > 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX < (this.leftViewWidth + this.wrapperWidth))){
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
                     this.__pos(0);
                     this.currentViewTag = this.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
                 }else{
-                    this.__pos(-this.rightView.clientWidth);
+                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
+                    this.__pos(-this.rightViewWidth);
                 }
             }
         },
 
-        __event: function (type) {
+        __event: function (type,data) {
             var ev = document.createEvent("Event");
 
+            for (var i in data) {
+                var propertyName = i;
+                if (propertyName == 'returnValue') continue;
+                var property = data[i];
+                if (typeof ev[propertyName] != 'function' && propertyName != "returnValue")
+                    ev[propertyName] = property;
+            }
             ev.initEvent('slideview-' + type, true, true);
 
             this.wrapper.dispatchEvent(ev);
