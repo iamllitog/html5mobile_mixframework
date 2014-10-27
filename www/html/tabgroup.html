@@ -149,13 +149,24 @@
 
      var tabgroupWarpper = document.getElementById('tabgroupwrapper');
 
-    window.addEventListener('tabgroup-movestart',function(event){
-    //     var output = "";
-    // for(var i in event){  
-    //     var property=event[i];  
-    //     output+=i+" = "+property+"\n"; 
-    // }  
+    tabgroupWarpper.addEventListener('tabgroup-movestart',function(event){
         console.log("tabgroup-movestart:"+event.pageX);
+    });
+
+    tabgroupWarpper.addEventListener('tabgroup-move',function(event){
+        console.log("tabgroup-move:"+event.pageX);
+    });
+
+    tabgroupWarpper.addEventListener('tabgroup-moveend',function(event){
+        console.log("tabgroup-moveend:"+event.pageX);
+    });
+
+    tabgroupWarpper.addEventListener('tabgroup-changeview',function(event){
+        console.log("tabgroup-changeview:"+event.tabId);
+    });
+
+    tabgroupWarpper.addEventListener('tabgroup-buttonclick',function(event){
+        console.log("tabgroup-buttonclick:"+event.tabId);
     });
 </script>
 </body>

@@ -168,10 +168,6 @@
 
     > 开始触摸
 
-+ tabgroup-movein
-
-    > 划动进入某个界面
-
 + tabgroup-move
 
     > 划动时
@@ -179,6 +175,10 @@
 + tabgroup-moveend
 
     > 划动结束
+
++ tabgroup-changeview
+
+    > 按钮点击
 
 + tabgroup-buttonclick
 
