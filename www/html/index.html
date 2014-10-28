@@ -19,11 +19,8 @@
             <div class="row leftview-search">
                 <div class="col-xs-12">
                     <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span>
-                          </button>
-                        </span>
+                        <input id='leftmenuSearchbar' type="text" class="form-control">
+                        <span class="input-group-addon"><span class=' glyphicon glyphicon-search'></span></span>
                     </div>
                 </div>
             </div>
@@ -32,8 +29,9 @@
                 <div id="leftmenuwrapper" class="col-xs-12">
                     <ul id="leftmenu_ul" class="list-group">
                         <script id="left_menulist_template" type="text/html">
+
                             {{#items}}
-                            <li class="list-group-item list-group-item-info">{{ title }}}</li>
+                            <li class="list-group-item list-group-item-info">{{ title }}</li>
                             {{/items}}
                         </script>
                     </ul>

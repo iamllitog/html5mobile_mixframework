@@ -11,6 +11,7 @@ var page = {
         page.initViews();
         page.bindEvents();
         page.initData();
+        
     },
     initViews : function () {
         this.sliderView = new SlideView('#slidewrapper',{
@@ -18,7 +19,6 @@ var page = {
         });
         this.tabGroup = new TabGroup('#tabgroupwrapper');
         this.leftMenuList = new IScroll('#leftmenuwrapper');
-
     },
     bindEvents: function () {
         $('#slidewrapper').on('slideview-movein-leftview',function(event){
@@ -31,10 +31,15 @@ var page = {
         $('#menuButton').on('click',function(event){
             page.sliderView.toggleLeftView();
         });
+
+        $('#leftmenuSearchbar').on('input',function(event){
+            alert($(this).val());
+        });
     },
     initData : function(){
         var cssItems = ich.left_menulist_template(this.cssObjs);
         $('#leftmenu_ul').append(cssItems);
+        page.leftMenuList.refresh();//当数据有变化时需要刷新
     }
 };
 

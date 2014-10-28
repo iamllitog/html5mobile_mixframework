@@ -263,7 +263,7 @@ var TabGroup = (function (window, document) {
             this.touchdistanceY += Math.abs(this.movedistanceY);
 
             //x方向和y方向划动大于10为有效
-            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY <10) {
+            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY ) {
                 return;
             }
             e.preventDefault();
@@ -293,12 +293,12 @@ var TabGroup = (function (window, document) {
                 distX = point.pageX - this.beginX,
                 distY = point.pageY - this.beginY;
 
-            if(Math.abs(distX) < Math.abs(distY))
-                return;
+            // if(Math.abs(distX) < Math.abs(distY))
+            //     return;
 
             this.sliderView.style[transitionDuration] = Math.floor(100 * Math.abs(distX) / this.snapThreshold) + 'ms';
 
-            if (Math.abs(distX) <= this.snapThreshold) {
+            if (Math.abs(distX) <= this.snapThreshold ) {
                 this.__changeTab(this.currentViewIndex);
             } else if (distX > 0) {
                 this.__changeTab(this.currentViewIndex > 0 ? (this.currentViewIndex - 1) : 0);

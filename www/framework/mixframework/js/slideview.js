@@ -260,10 +260,8 @@ var SlideView = (function (window, document) {
                 distX = point.pageX - this.startPointX,
                 distY = point.pageY - this.startPointY;
 
-            if(Math.abs(distX) < Math.abs(distY))
-                return;
-
-
+            // if(Math.abs(distX) < Math.abs(distY))
+            //     return;
 
             if (this.currentViewTag == SlideView.CURRENT_LEFT_VIEW) {
                 if ((distX < 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX > this.leftViewWidth)) {
