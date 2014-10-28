@@ -162,6 +162,14 @@
 
 ###属性
 
++ moveMode
+
+> 设置切换page的模式
+
+>> TabGroup.MOVE_MODE_SLIDE 划动切换
+
+>> TabGroup.MOVE_MODE_NODE 禁止划动切换
+
 ###事件
 
 + tabgroup-movestart

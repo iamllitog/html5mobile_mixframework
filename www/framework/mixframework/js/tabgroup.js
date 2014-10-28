@@ -107,6 +107,7 @@ var TabGroup = (function (window, document) {
             views = null;
 
             this.refreshSize();
+            this.moveMode = this.options.moveMode;
 
             window.addEventListener(resizeEvent, this, false);
             this.sliderView.addEventListener(startEvent, this, false);
@@ -202,7 +203,7 @@ var TabGroup = (function (window, document) {
 
             this.__event('buttonclick',e);
 
-            if (this.options.moveMode == TabGroup.MOVE_MODE_NODE) {
+            if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
                 this.sliderView.style[transitionDuration] = '0ms';
             } else {
                 this.sliderView.style[transitionDuration] = TabGroup.CHANGE_PAGE_TIME + 'ms';
@@ -219,7 +220,7 @@ var TabGroup = (function (window, document) {
         __start: function (e) {
             if (this.initiated) return;
 
-            if (this.options.moveMode == TabGroup.MOVE_MODE_NODE) {
+            if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
                 return;
             }
 
@@ -240,7 +241,7 @@ var TabGroup = (function (window, document) {
 
             if (!this.initiated) return;
 
-            if (this.options.moveMode == TabGroup.MOVE_MODE_NODE) {
+            if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
                 return;
             }
 
@@ -262,7 +263,7 @@ var TabGroup = (function (window, document) {
             this.touchdistanceY += Math.abs(this.movedistanceY);
 
             //x方向和y方向划动大于10为有效
-            if (this.touchdistanceX < 10 && this.touchdistanceY < 10) {
+            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY <10) {
                 return;
             }
             e.preventDefault();
@@ -280,7 +281,7 @@ var TabGroup = (function (window, document) {
         __end: function (e) {
             if (!this.initiated) return;
 
-            if (this.options.moveMode == TabGroup.MOVE_MODE_NODE) {
+            if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
                 return;
             }
 
@@ -289,7 +290,11 @@ var TabGroup = (function (window, document) {
             this.__event('moveend', e);
 
             var point = hasTouch ? e.changedTouches[0] : e,
-                distX = point.pageX - this.beginX;
+                distX = point.pageX - this.beginX,
+                distY = point.pageY - this.beginY;
+
+            if(Math.abs(distX) < Math.abs(distY))
+                return;
 
             this.sliderView.style[transitionDuration] = Math.floor(100 * Math.abs(distX) / this.snapThreshold) + 'ms';
 

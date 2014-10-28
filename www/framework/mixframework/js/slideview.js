@@ -86,7 +86,7 @@ var SlideView = (function (window, document) {
             this.wrapper.style.position = 'relative';
 
             this.sliderView.style.cssText += ';position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-            this.contentView.style.cssText += ';'+cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;';
+            this.contentView.style.cssText += ';' + cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;';
             this.leftView.style.cssText += ';' + cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;left:-' + this.leftView.style.width;
             this.rightView.style.cssText += ';' + cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;right:-' + this.rightView.style.width;
 
@@ -96,6 +96,8 @@ var SlideView = (function (window, document) {
             this.wrapper.addEventListener(startEvent, this, false);
             this.wrapper.addEventListener(moveEvent, this, false);
             this.wrapper.addEventListener(endEvent, this, false);
+            this.sliderView.addEventListener(transitionEndEvent,this, false);
+
         };
 //声明打开关闭的模式
     SlideView.OPEN_MODE_NONE = 100;
@@ -103,41 +105,45 @@ var SlideView = (function (window, document) {
     SlideView.CLOSE_MODE_NONE = -100;
     SlideView.CLOSE_MODE_ALL = -1000;
 
+    SlideView.CURRENT_LEFT_VIEW = 'left-view';
+    SlideView.CURRENT_CENTER_VIEW = 'center-view';
+    SlideView.CURRENT_RIGHT_VIEW = 'right-view';
+
     SlideView.prototype = {
-        CURRENT_LEFT_VIEW : 'left-view',
-        CURRENT_CENTER_VIEW : 'center-view',
-        CURRENT_RIGHT_VIEW : 'right-view',
-        currentViewTag : 'center-view',
+
+        currentViewTag: 'center-view',
         x: 0,
         //开关左侧view
-        toggleLeftView : function(){
-            this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth) / this.snapThreshold) + 'ms';
-            if(this.currentViewTag == this.CURRENT_LEFT_VIEW){
-                this.__pos(0);
-                this.currentViewTag = this.CURRENT_CENTER_VIEW;
+        toggleLeftView: function () {
+            if(this.isFlip) return;
+            var tranTime = Math.floor(80 * Math.abs(this.leftViewWidth) / this.snapThreshold);
+            if (this.currentViewTag == SlideView.CURRENT_LEFT_VIEW) {
+                this.__pos(0,tranTime);
+                this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
-            }else{
-                this.__pos(this.leftViewWidth);
-                this.currentViewTag = this.CURRENT_LEFT_VIEW;
+            } else {
+                this.__pos(this.leftViewWidth,tranTime);
+                this.currentViewTag = SlideView.CURRENT_LEFT_VIEW;
                 this.__event('movein-leftview');
             }
         },
 
         //开关右侧view
-        toggleRightView : function(){
-            this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth) / this.snapThreshold) + 'ms';
-            if(this.currentViewTag == this.CURRENT_RIGHT_VIEW){
-                this.__pos(0);
-                this.currentViewTag = this.CURRENT_CENTER_VIEW;
+        toggleRightView: function () {
+            if(this.isFlip) return;
+            var tranTime = Math.floor(80 * Math.abs(this.rightViewWidth) / this.snapThreshold);
+            if (this.currentViewTag == SlideView.CURRENT_RIGHT_VIEW) {
+                this.__pos(0,tranTime);
+                this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
-            }else{
-                this.__pos(-this.rightViewWidth);
-                this.currentViewTag = this.CURRENT_RIGHT_VIEW;
+            } else {
+                this.__pos(-this.rightViewWidth,tranTime);
+                this.currentViewTag = SlideView.CURRENT_RIGHT_VIEW;
                 this.__event('movein-rightview');
             }
         },
         //得到当前显示的view 是right还是left还是center
-        getCurrentViewTag : function(){
+        getCurrentViewTag: function () {
             return this.currentViewTag;
         },
         refreshSize: function () {
@@ -167,13 +173,17 @@ var SlideView = (function (window, document) {
                 case resizeEvent:
                     this.__resize();
                     break;
+                case transitionEndEvent:
+                case 'otransitionend':
+                    if (e.target == this.sliderView) this.__flipEnd();
+                    break;
             }
         },
 
         __resize: function () {
             this.refreshSize();
-            this.sliderView.style[transitionDuration] = '0s';
-            this.__pos(0);
+            this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
+                this.__pos(0);
         },
 
         __start: function (e) {
@@ -181,7 +191,7 @@ var SlideView = (function (window, document) {
 
             var point = hasTouch ? e.touches[0] : e;
 
-            this.__event('movestart',e);
+            this.__event('movestart', e);
 
             this.initiated = true;
             this.startX = point.pageX;
@@ -199,13 +209,13 @@ var SlideView = (function (window, document) {
             if (!this.initiated) return;
 
             //是否划动
-            if((this.currentViewTag == this.CURRENT_LEFT_VIEW || this.currentViewTag == this.CURRENT_RIGHT_VIEW) && this.options.closeSlideMode == SlideView.CLOSE_MODE_NONE){
+            if ((this.currentViewTag == SlideView.CURRENT_LEFT_VIEW || this.currentViewTag == SlideView.CURRENT_RIGHT_VIEW) && this.options.closeSlideMode == SlideView.CLOSE_MODE_NONE) {
                 return;
-            }else if(this.currentViewTag == this.CURRENT_CENTER_VIEW && this.options.openSlideMode == SlideView.OPEN_MODE_NONE){
+            } else if (this.currentViewTag == SlideView.CURRENT_CENTER_VIEW && this.options.openSlideMode == SlideView.OPEN_MODE_NONE) {
                 return;
             }
 
-            this.__event('move',e);
+            this.__event('move', e);
             var point = hasTouch ? e.touches[0] : e;
             this.endX = point.pageX;
             this.endY = point.pageY;
@@ -221,7 +231,7 @@ var SlideView = (function (window, document) {
             this.touchdistanceY += Math.abs(this.movedistanceY);
 
             //x方向和y方向划动大于10为有效
-            if (this.touchdistanceX < 10 && this.touchdistanceY < 10) {
+            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY ) {
                 return;
             }
             e.preventDefault();
@@ -237,58 +247,60 @@ var SlideView = (function (window, document) {
         __end: function (e) {
             if (!this.initiated) return;
             this.initiated = false;
-
             //是否划动
-            if((this.currentViewTag == this.CURRENT_LEFT_VIEW || this.currentViewTag == this.CURRENT_RIGHT_VIEW) && this.options.closeSlideMode == SlideView.CLOSE_MODE_NONE){
+            if ((this.currentViewTag == SlideView.CURRENT_LEFT_VIEW || this.currentViewTag == SlideView.CURRENT_RIGHT_VIEW) && this.options.closeSlideMode == SlideView.CLOSE_MODE_NONE) {
                 return;
-            }else if(this.currentViewTag == this.CURRENT_CENTER_VIEW && this.options.openSlideMode == SlideView.OPEN_MODE_NONE){
+            } else if (this.currentViewTag == SlideView.CURRENT_CENTER_VIEW && this.options.openSlideMode == SlideView.OPEN_MODE_NONE) {
                 return;
             }
+
+            this.__event('moveend', e);
+
             var point = hasTouch ? e.changedTouches[0] : e,
-                distX = point.pageX - this.startPointX;
+                distX = point.pageX - this.startPointX,
+                distY = point.pageY - this.startPointY;
 
-            this.__event('moveend',e);
+            if(Math.abs(distX) < Math.abs(distY))
+                return;
 
-//            alert(point.pageX);
-            if(this.currentViewTag == this.CURRENT_LEFT_VIEW){
-                if((distX < 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX > this.leftViewWidth)){
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
-                    this.__pos(0);
-                    this.currentViewTag = this.CURRENT_CENTER_VIEW;
+
+
+            if (this.currentViewTag == SlideView.CURRENT_LEFT_VIEW) {
+                if ((distX < 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX > this.leftViewWidth)) {
+                    this.__pos(0,Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
-                }else{
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
-                    this.__pos(this.leftViewWidth);
+                } else {
+                    this.__pos(this.leftViewWidth,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
-            }else if(this.currentViewTag == this.CURRENT_CENTER_VIEW){
-                if(distX < 0 && Math.abs(distX) > this.snapThreshold){
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
-                    this.__pos(-this.rightViewWidth);
-                    this.currentViewTag = this.CURRENT_RIGHT_VIEW;
+            } else if (this.currentViewTag == SlideView.CURRENT_CENTER_VIEW) {
+                if (distX < 0 && Math.abs(distX) > this.snapThreshold) {
+                    this.__pos(-this.rightViewWidth,Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.currentViewTag = SlideView.CURRENT_RIGHT_VIEW;
                     this.__event('movein-rightview');
-                }else if(distX > 0 && Math.abs(distX) > this.snapThreshold){
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
-                    this.__pos(this.leftViewWidth);
-                    this.currentViewTag = this.CURRENT_LEFT_VIEW;
+                } else if (distX > 0 && Math.abs(distX) > this.snapThreshold) {
+                    this.__pos(this.leftViewWidth,Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.currentViewTag = SlideView.CURRENT_LEFT_VIEW;
                     this.__event('movein-leftview');
-                }else{
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
-                    this.__pos(0);
+                } else {
+                    this.__pos(0,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
-            }else{
-                if((distX > 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX < (this.leftViewWidth + this.wrapperWidth))){
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold) + 'ms';
-                    this.__pos(0);
-                    this.currentViewTag = this.CURRENT_CENTER_VIEW;
+            } else {
+                if ((distX > 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX < (this.leftViewWidth + this.wrapperWidth))) {
+                    this.__pos(0,Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
-                }else{
-                    this.sliderView.style[transitionDuration] = Math.floor(150 * Math.abs(distX) / this.snapThreshold) + 'ms';
-                    this.__pos(-this.rightViewWidth);
+                } else {
+                    this.__pos(-this.rightViewWidth,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
             }
         },
 
-        __event: function (type,data) {
+        __flipEnd : function(e){
+            this.isFlip = false;
+        },
+
+        __event: function (type, data) {
             var ev = document.createEvent("Event");
 
             for (var i in data) {
@@ -302,7 +314,10 @@ var SlideView = (function (window, document) {
 
             this.wrapper.dispatchEvent(ev);
         },
-        __pos: function (x) {
+        __pos: function (x,time) {
+            if(time && time > 0)
+                this.isFlip = true;
+            this.sliderView.style[transitionDuration] = time + 'ms';
             this.x = x;
             this.sliderView.style[transform] = 'translate(' + x + 'px,0)' + translateZ;
         }

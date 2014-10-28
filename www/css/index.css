@@ -26,6 +26,30 @@ html,body {
 .header{
     background-color: #1eb0e9;
 }
+.header > div{
+    height: 100%;
+}
+.header-icon{
+    display: block;
+    text-align: center;
+    word-wrap: break-word;
+    font-size: 2.5em;
+    top : 18%;
+}
+
+/*左边导航*/
+.leftview-search{
+    padding-top: 5px;
+}
+
+.leftview-list{
+    padding-top: 10px;
+}
+#leftmenuwrapper{
+    height: 300px;
+    overflow: hidden;
+}
+
 
 /*底部导航*/
 .bottom-text span{

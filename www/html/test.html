@@ -1,16 +1,69 @@
-
-        <html>
+<!DOCTYPE html>
+<html>
 <head>
-<style>
-    #ha{
-        width: 20%;
-        height: 20%;
-        background-color: #000000;
+    <style>
+        li{
+            height: 30px;
+        }
+        #wapper {
+            /*position: relative;*/
+            /*width: 300px;*/
+            height: 300px;
+        overflow: hidden;
+        }
 
-    }
-</style>
+    </style>
 </head>
 <body>
-    <div id="ha"></div>
+<div id="wapper">
+    <ul>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+        <li>hahaha</li>
+    </ul>
+</div>
+
+<script src="../framework/mixframework/js/zepto.min.js"></script>
+<script src="../framework/mixframework/js/iscroll-lite.js"></script>
+<script type="text/javascript">
+    var page = {
+        initialize: function () {
+            $(document).ready(this.documentReady);
+        },
+        documentReady : function () {
+            var iscroll = new IScroll('#wapper');
+        }
+    };
+    page.initialize();
+</script>
 </body>
-        </html>
+</html>

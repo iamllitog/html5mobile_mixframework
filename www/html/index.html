@@ -14,10 +14,43 @@
 <body>
 <div id='slidewrapper'>
     <div data-slide-slider>
-        <div data-slide-leftview style="width: 180px;background-color: black;"></div>
+        <div data-slide-leftview class="container" style="width: 60%;">
+
+            <div class="row leftview-search">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span>
+                          </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row leftview-list">
+                <div id="leftmenuwrapper" class="col-xs-12">
+                    <ul id="leftmenu_ul" class="list-group">
+                        <script id="left_menulist_template" type="text/html">
+                            {{#items}}
+                            <li class="list-group-item list-group-item-info">{{ title }}}</li>
+                            {{/items}}
+                        </script>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
         <div data-slide-content style="width: 100%;">
             <div id="tabgroupwrapper">
-                <div class="header"></div>
+                <div class="header">
+                    <div id="menuButton" class="col-xs-2">
+                        <span class="glyphicon glyphicon-tasks header-icon"/>
+                    </div>
+                    <div class="col-xs-8"></div>
+                    <div class="col-xs-2"></div>
+                </div>
 
                 <div data-tabgroup-tabviews>
                     <div data-tabgroup-tabid='css' style="width: 180px;background-color: #ffff00;"></div>
@@ -50,6 +83,8 @@
 
 <script src="cordova.js"></script>
 <script src="../framework/mixframework/js/zepto.min.js"></script>
+<script src="../framework/mixframework/js/ICanHaz.min.js"></script>
+<script src="../framework/mixframework/js/iscroll-lite.js"></script>
 <script src="../js/index.js"></script>
 <script>
     page.initialize();
