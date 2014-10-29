@@ -210,8 +210,10 @@ var SlideView = (function (window, document) {
 
             //是否划动
             if ((this.currentViewTag == SlideView.CURRENT_LEFT_VIEW || this.currentViewTag == SlideView.CURRENT_RIGHT_VIEW) && this.options.closeSlideMode == SlideView.CLOSE_MODE_NONE) {
+//                this.initiated = false;
                 return;
             } else if (this.currentViewTag == SlideView.CURRENT_CENTER_VIEW && this.options.openSlideMode == SlideView.OPEN_MODE_NONE) {
+//                this.initiated = false;
                 return;
             }
 
@@ -231,15 +233,23 @@ var SlideView = (function (window, document) {
             this.touchdistanceY += Math.abs(this.movedistanceY);
 
             //x方向和y方向划动大于10为有效
-            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY ) {
+            if (this.touchdistanceX < 10 && this.touchdistanceY < 10) {
+//                this.initiated = false;
                 return;
             }
-            e.preventDefault();
+
+              if(this.touchdistanceX < this.touchdistanceY){
+                  this.initiated = false;
+                  return;
+              }
 
             //越界判断
             if (this.newX < -this.rightViewWidth || this.newX > this.leftViewWidth) {
+                this.initiated = false;
                 return;
             }
+
+            e.preventDefault();
 
             this.__pos(this.newX);
         },

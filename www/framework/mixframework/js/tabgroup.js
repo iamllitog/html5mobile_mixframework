@@ -234,6 +234,7 @@ var TabGroup = (function (window, document) {
             this.beginY = point.pageY;
             this.touchdistanceX = 0;
             this.touchdistanceY = 0;
+
             this.sliderView.style[transitionDuration] = '0s';
         },
 
@@ -242,6 +243,7 @@ var TabGroup = (function (window, document) {
             if (!this.initiated) return;
 
             if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
+//                this.initiated = false;
                 return;
             }
 
@@ -254,7 +256,8 @@ var TabGroup = (function (window, document) {
             this.movedistanceX = this.endX - this.startX;
             this.movedistanceY = this.endY - this.startY;
 
-            this.newX = this.movedistanceX + this.x;
+            var newX = this.movedistanceX + this.x;
+
 
             this.startX = this.endX;
             this.startY = this.endY;
@@ -263,19 +266,25 @@ var TabGroup = (function (window, document) {
             this.touchdistanceY += Math.abs(this.movedistanceY);
 
             //x方向和y方向划动大于10为有效
-            if ((this.touchdistanceX < 10 && this.touchdistanceY < 10) || this.touchdistanceX < this.touchdistanceY ) {
+            if (this.touchdistanceX < 5 && this.touchdistanceY < 5) {
+//                this.initiated = false;
                 return;
             }
-            e.preventDefault();
+            if(this.touchdistanceY - this.touchdistanceX > 10){
+                this.initiated = false;
+                return;
+            }
 
             // 越界判断
-            if (this.newX < (-(this.viewLength - 1) * this.wrapperWidth) || this.newX > 0) {
+            if (newX < (-(this.viewLength - 1) * this.wrapperWidth) || newX > 0) {
+                this.initiated = false;
                 return;
             }
 
-            this.__pos(this.newX);
+            e.preventDefault();
 
 
+            this.__pos(newX);
         },
 
         __end: function (e) {

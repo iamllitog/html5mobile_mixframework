@@ -14,6 +14,10 @@ html,body {
     height: 84%;
     max-height: 84%;
 }
+#tabgroupwrapper > [data-tabgroup-tabviews] >[data-tabgroup-tabid]{
+    overflow-x:hidden;
+    overflow-y: scroll;
+}
 #tabgroupwrapper > [data-tabgroup-tabbuttons]{
     height: 8%;
     max-height: 8%;
