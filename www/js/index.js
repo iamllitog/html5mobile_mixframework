@@ -19,7 +19,7 @@ var page = {
             openSlideMode : SlideView.OPEN_MODE_NONE
         });
         this.tabGroup = new TabGroup('#tabgroupwrapper');
-        this.leftMenuList = new IScroll('#leftmenuwrapper');
+        this.leftMenuList = new IScroll('#leftmenuwrapper', { click: true ,tap: true});
     },
     bindEvents: function () {
         $('#slidewrapper').on('slideview-movein-leftview',function(event){
@@ -55,7 +55,7 @@ var page = {
         //当首次绑定元素时没有选择到指定元素(因为没有此元素),此时我们可以用代理事件绑定
         //如下 我们绑定到其父元素上 让其父元素代理事件
         //另外一个好处，就是可以减少事件的监听提高效率
-        $('#leftmenu_ul').on('click','li',function(event){
+        $('#leftmenu_ul').on('tap','li',function(event){
             alert($(this).attr('data-id'));
         });
     },

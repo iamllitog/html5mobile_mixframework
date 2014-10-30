@@ -282,8 +282,6 @@ var TabGroup = (function (window, document) {
             }
 
             e.preventDefault();
-
-
             this.__pos(newX);
         },
 
