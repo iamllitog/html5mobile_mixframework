@@ -9,4 +9,6 @@
     </author>
     <content src="html/index.html" />
     <access origin="*" />
+
+    <preference name="DisallowOverscroll" value="true" />
 </widget>

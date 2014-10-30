@@ -270,6 +270,7 @@ var TabGroup = (function (window, document) {
                 return;
             }
             if(this.touchdistanceY - this.touchdistanceX > 10){
+                this.__changeTab(this.currentViewIndex);
                 this.initiated = false;
                 return;
             }

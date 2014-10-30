@@ -15,6 +15,7 @@ var page = {
         
     },
     initViews : function () {
+        $('html').height($(window).height());//输入框盖住解决-1:输入框被盖住多因为高度按百分比，所以此处设置为死值
         this.sliderView = new SlideView('#slidewrapper',{
             openSlideMode : SlideView.OPEN_MODE_NONE
         });
@@ -23,6 +24,10 @@ var page = {
         this.leftMenuList = new IScroll('#leftmenuwrapper', { click: true ,tap: true});
     },
     bindEvents: function () {
+        //输入框盖住解决-2:当换向或resize时重新更改高度
+        $(window).on('onorientationchange' in window ? 'orientationchange' : 'resize',function(event){
+            $('html').height($(window).height());
+        });
         $('#slidewrapper').on('slideview-movein-leftview',function(event){
             page.tabGroup.moveMode = TabGroup.MOVE_MODE_NODE;
         });
