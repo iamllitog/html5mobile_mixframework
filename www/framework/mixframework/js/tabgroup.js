@@ -219,7 +219,6 @@ var TabGroup = (function (window, document) {
 
         __start: function (e) {
             if (this.initiated) return;
-
             if (this.moveMode == TabGroup.MOVE_MODE_NODE) {
                 return;
             }
