@@ -10,7 +10,9 @@ var page = {
         {title: "其他", id: 'othercss'}
     ]},
     componentsObjs: {id: 'components', items: [
-        {title: 'glyphions', id: 'glyphions'}
+        {title: 'glyphions', id: 'glyphions'},
+        {title: '按钮组', id: 'buttongroup'},
+        {title: '输入框组', id: 'inputgroup'}
     ]},
     jspluginsObjs: {id: 'jsplugins', items: [
         {title: 'glyphions', id: 'glyphions'}
@@ -98,6 +100,7 @@ var page = {
             $('#leftmenu_ul').append(items);
 
             $("#leftmenu_ul >  [data-id='"+page[event.tabId].id+"'] ").addClass('active');
+            $('#title').text(page[event.tabId].title);
         });
     },
     initData: function () {
