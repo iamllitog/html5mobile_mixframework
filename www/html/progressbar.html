@@ -1,0 +1,132 @@
+<div>
+	<!-- <link rel="stylesheet" type="text/css" href="../framework/mixframework/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="../css/progressbar.css">
+	<div class="container">
+		<h1>进度条</h1>
+		<p>通过这些简单、灵活的进度条，为当前工作流程或动作提供实时反馈。</p>
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>基本实例</h3>
+				<p>默认样式的进度条</p>
+				<div class="progress">
+					<div class="progress-bar" style="width: 60%;">
+						<span class="sr-only">60% Complete</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>带有提示标签的进度条</h3>
+				<p>从进度条组件中移除 .sr-only 类，从而让当前进度显示出来。考虑到当前进度比例很低的情况，建议为进度标签添加 min-width 属性，以保证进度标签完全显示出来。</p>
+				<div class="progress">
+					<div class="progress-bar" style="width: 60%;">
+						60%
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>进度数值较低的情况</h3>
+				<p>在当前进度数值较低的情况下，进度条组件显示的是带有一个数字的进度值，也包括 0% 的情况，为了清晰显示出来，建议为进度标签添加一个 min-width: 20px; 属性。</p>
+				<div class="progress">
+					<div class="progress-bar" style="min-width: 20px;">
+						0%
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar" style="width: 2%;">
+						2%
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>根据情境变化效果</h3>
+				<p>进度条组件使用与按钮和警告框相同的类，根据不同情境展现相应的效果。</p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 40%">
+						40% Complete (success)
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-info" style="width: 20%">
+						20% Complete
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-warning" style="width: 60%">
+						60% Complete (warning)
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-danger" style="width: 80%">
+						80% Complete (danger)
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>条纹效果</h3>
+				<p>通过渐变可以为进度条创建条纹效果，IE8 不支持。</p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success progress-bar-striped" style="width: 40%">
+						40% Complete (success)
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-info progress-bar-striped" style="width: 20%">
+						20% Complete
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 60%">
+						60% Complete (warning)
+					</div>
+				</div>
+				<div class="progress">
+					<div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 80%">
+						80% Complete (danger)
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>动画效果</h3>
+				<p>为 .progress-bar-striped 添加 .active 类，使其呈现出由右向左运动的动画效果。IE9 及更低版本的浏览器不支持。</p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active" style="width: 60%;">
+						<span class="sr-only">60% Complete</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='row'>
+			<div class="col-xs-12 content-div">
+				<h3>堆叠效果</h3>
+				<p>把多个进度条放入同一个 .progress 中，使它们呈现堆叠的效果。</p>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 35%">
+						<span class="sr-only">35% Complete (success)</span>
+					</div>
+					<div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 20%">
+						<span class="sr-only">20% Complete (warning)</span>
+					</div>
+					<div class="progress-bar progress-bar-danger" style="width: 10%">
+						<span class="sr-only">10% Complete (danger)</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
