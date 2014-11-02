@@ -111,6 +111,7 @@ $('#leftmenu_ul').append(items);
 
 $("#leftmenu_ul >  [data-id='"+page[event.tabId].id+"'] ").addClass('active');
 $('#title').text(page[event.tabId].title);
+page.leftMenuList.refresh();
 });
     },
     initData: function () {
