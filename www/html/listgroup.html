@@ -1,0 +1,109 @@
+<div>
+    <!--<link rel="stylesheet" type="text/css" href="../framework/mixframework/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="../css/listgroup.css">
+    <div class="container">
+        <h1>列表组</h1>
+        <p>列表组是灵活又强大的组件，不仅能用于显示一组简单的元素，还能用于复杂的定制的内容。</p>
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>基本实例</h3>
+                <p>最简单的列表组仅仅是一个带有多个列表条目的无序列表，另外还需要设置适当的类。我们提供了一些预定义的样式，你可以根据自身的需求通过 CSS 自己定制。</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>徽章</h3>
+                <p>给列表组加入徽章组件，它会自动被放在右边。</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio<span class="badge">14</span></li>
+                    <li class="list-group-item">Dapibus ac facilisis in<span class="badge">2</span></li>
+                    <li class="list-group-item">Morbi leo risus<span class="badge">a</span></li>
+                    <li class="list-group-item">Porta ac consectetur ac<span class="badge">hello</span></li>
+                    <li class="list-group-item">Vestibulum at eros<span class="badge">好</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>链接</h3>
+                <p>用 &lt;a&gt; 标签代替 &lt;li&gt; 标签可以组成一个全部是链接的列表组（还要注意的是，我们需要将 &lt;ul&gt; 标签替换为 &lt;div&gt; 标签）。没必要给列表组中的每个元素都加一个父元素。</p>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        Cras justo odio
+                    </a>
+                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item">Morbi leo risus</a>
+                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>被禁用的条目</h3>
+                <p>为 .list-group-item 添加 .disabled 类可以让单个条目显示为灰色，表现出被禁用的效果。</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item disabled">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>情境类</h3>
+                <p>为列表中的条目添加情境类，默认样式或链接列表都可以。还可以为列表中的条目设置 .active 状态。</p>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">Dapibus ac facilisis in</li>
+                    <li class="list-group-item list-group-item-info">Cras sit amet nibh libero</li>
+                    <li class="list-group-item list-group-item-warning">Porta ac consectetur ac</li>
+                    <li class="list-group-item list-group-item-danger">Vestibulum at eros</li>
+                </ul>
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
+                    <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
+                    <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
+                    <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h3>定制内容</h3>
+                <p>列表组中的每个元素都可以是任何 HTML 内容，甚至是像下面的带链接的列表组。</p>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">...</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">...</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">...</p>
+                    </a>
+                    <a href="#" class="list-group-item">
+                        <h4 class="list-group-item-heading">List group item heading</h4>
+                        <p class="list-group-item-text">...</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

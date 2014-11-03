@@ -1,31 +1,34 @@
 var page = {
     cssObjs: {id: 'css', items: [
-    {title: "栅格系统", id: 'grid'},
-    {title: "排版", id: 'typesetting'},
-    {title: "代码", id: 'code'},
-    {title: "表单", id: 'form'},
-    {title: "表格", id: 'table'},
-    {title: "按钮", id: 'button'},
-    {title: "图片", id: 'image'},
-    {title: "其他", id: 'othercss'}
+        {title: "栅格系统", id: 'grid'},
+        {title: "排版", id: 'typesetting'},
+        {title: "代码", id: 'code'},
+        {title: "表单", id: 'form'},
+        {title: "表格", id: 'table'},
+        {title: "按钮", id: 'button'},
+        {title: "图片", id: 'image'},
+        {title: "其他", id: 'othercss'}
     ]},
     componentsObjs: {id: 'components', items: [
-    {title: 'glyphions', id: 'glyphions'},
-    {title: '按钮组', id: 'buttongroup'},
-    {title: '输入框组', id: 'inputgroup'},
-    {title: '路径导航', id: 'path'},
-    {title: '分页', id: 'pagination'},
-    {title: '标签', id: 'tag'},
-    {title: '徽章', id: 'badge'},
-    {title: '巨幕', id: 'jumbotron'},
-    {title: '页头', id: 'pagehead'},
-    {title: '缩略图', id: 'thumbnails'},
-    {title: '警告框', id: 'warningbox'},
-    {title: '进度条', id: 'progressbar'},
-    {title: 'Well', id: 'well'},
+        {title: 'glyphions', id: 'glyphions'},
+        {title: '按钮组', id: 'buttongroup'},
+        {title: '输入框组', id: 'inputgroup'},
+        {title: '路径导航', id: 'path'},
+        {title: '分页', id: 'pagination'},
+        {title: '标签', id: 'tag'},
+        {title: '徽章', id: 'badge'},
+        {title: '巨幕', id: 'jumbotron'},
+        {title: '页头', id: 'pagehead'},
+        {title: '缩略图', id: 'thumbnails'},
+        {title: '警告框', id: 'warningbox'},
+        {title: '进度条', id: 'progressbar'},
+        {title: '媒体对象', id: 'mediaobject'},
+        {title: '列表组', id: 'listgroup'},
+        {title: '面板', id: 'panel'},
+        {title: 'Well', id: 'well'},
     ]},
     jspluginsObjs: {id: 'jsplugins', items: [
-    {title: 'glyphions', id: 'glyphions'}
+        {title: 'glyphions', id: 'glyphions'}
     ]},
     currentObjs: null,
     css: null,
@@ -94,7 +97,7 @@ var page = {
             if ($(this).hasClass('active')) return;
             $('#leftmenu_ul > .active').removeClass('active');
             $(this).addClass('active');
-            page[page.tabGroup.getCurrentViewId()] = {title : $(this).text(),id:$(this).attr('data-id')};
+            page[page.tabGroup.getCurrentViewId()] = {title: $(this).text(), id: $(this).attr('data-id')};
             $('#title').text($(this).text());
             var html = './' + $(this).attr('data-id') + '.html';
             $("[data-tabgroup-tabviews] > [data-tabgroup-tabid='" + page.currentObjs.id + "'] > div").load(html);
@@ -104,15 +107,15 @@ var page = {
         $('#tabgroupwrapper').on('tabgroup-changeview', function (event) {
 //            alert(event.tabId);
 
-page.currentObjs = page[event.tabId + 'Objs'];
-var items = ich.left_menulist_template(page.currentObjs);
-$('#leftmenu_ul li').remove();
-$('#leftmenu_ul').append(items);
+            page.currentObjs = page[event.tabId + 'Objs'];
+            var items = ich.left_menulist_template(page.currentObjs);
+            $('#leftmenu_ul li').remove();
+            $('#leftmenu_ul').append(items);
 
-$("#leftmenu_ul >  [data-id='"+page[event.tabId].id+"'] ").addClass('active');
-$('#title').text(page[event.tabId].title);
-page.leftMenuList.refresh();
-});
+            $("#leftmenu_ul >  [data-id='" + page[event.tabId].id + "'] ").addClass('active');
+            $('#title').text(page[event.tabId].title);
+            page.leftMenuList.refresh();
+        });
     },
     initData: function () {
         this.currentObjs = this.cssObjs;
