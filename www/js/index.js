@@ -119,6 +119,7 @@ var page = {
     },
     initData: function () {
         this.currentObjs = this.cssObjs;
+        //在document方法中可使用模版或者grabTemplates方法使用模版
         var cssItems = ich.left_menulist_template(this.currentObjs);
         $('#leftmenu_ul').append(cssItems);
         //郑重提醒，:text :checkbox :first 等等在 jQuery 里面很常用的选择器，Zepto 不支持！
