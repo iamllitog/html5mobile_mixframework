@@ -1,0 +1,186 @@
+<div>
+    <link rel="stylesheet" type="text/css" href="../css/modeldialog.css">
+    <div class="container">
+        <h1>模态框</h1>
+
+        <p>模态框经过了优化，更加灵活，以弹出对话框的形式出现，具有最小和最实用的功能集。</p>
+        <blockquote>
+            <p>不支持模态框重叠</p>
+            <footer>千万不要在一个模态框上重叠另一个模态框。要想同时支持多个模态框，需要自己写额外的代码来实现。</footer>
+        </blockquote>
+        <blockquote>
+            <p>模态框的 HTML 代码放置的位置</p>
+            <footer>务必将模态框的 HTML 代码放在文档的最高层级内（也就是说，尽量作为 body 标签的直接子元素），以避免其他组件影响模态框的展现和/或功能。</footer>
+        </blockquote>
+        <blockquote>
+            <p>对于移动设备的附加说明</p>
+            <footer>这里提供了在移动设备上使用模态框有一些附加说明。请参考<a
+                    href="http://v3.bootcss.com/getting-started/#support-fixed-position-keyboards">浏览器支持章节</a>。
+            </footer>
+        </blockquote>
+
+        <div class='row'>
+            <div class="col-xs-12 content-div">
+                <h2>实例</h2>
+                <h3>动态实例</h3>
+                <p>点击下面的按钮即可通过 JavaScript 启动一个模态框。此模态框将从上到下、逐渐浮现到页面前。</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Launch demo modal
+                </button>
+
+                <blockquote>
+                    <p>增强模态框的可访问性</p>
+                    <footer>务必为 .modal 添加 role="dialog" 属性，aria-labelledby="myModalLabel" 属性用于只想模态框的标题栏，aria-hidden="true" 用于通知辅助性工具略过模态框的 DOM元素。<br/>另外，你还应该通过 aria-describedby 属性为模态框 .modal 添加描述性信息。</a>。
+                    </footer>
+                </blockquote>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 content-div">
+                <h2>可选尺寸</h2>
+                <p>模态框提供了两个可选尺寸，通过为 .modal-dialog 增加一个样式调整类实现。</p>
+
+                <!-- Large modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+
+                <!-- Small modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Small modal</button>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 content-div">
+                <h3>禁止动画效果</h3>
+                <p>如果你不需要模态框弹出时的动画效果（淡入淡出效果），删掉 .fade 类即可。</p>
+                <!-- Small modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#noAnim">Small modal</button>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 content-div">
+                <h2>用法</h2>
+                <p>通过 data 属性或 JavaScript 调用模态框插件，可以根据需要动态展示隐藏的内容。模态框弹出时还会为 <body> 元素添加 .modal-open 类，从而覆盖页面默认的滚动行为，并且还会自动生成一个 .modal-backdrop 元素用于提供一个可点击的区域，点击此区域就即可关闭模态框。</p>
+                <h3>通过 data 属性</h3>
+                <p>不需写 JavaScript 代码也可激活模态框。通过在一个起控制器作用的元素（例如：按钮）上添加 data-toggle="modal" 属性，或者 data-target="#foo" 属性，再或者 href="#foo" 属性，用于指向被控制的模态框。</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 content-div">
+                <h2>通过 JavaScript 调用</h2>
+                <p>只需一行 JavaScript 代码，即可通过元素的 id myModal 调用模态框：</p>
+                <p>$('#myModal').modal(options)</p>
+                <h3>参数</h3>
+                <p>可以将选项通过 data 属性或 JavaScript 代码传递。对于 data 属性，需要将参数名称放到 data- 之后，例如 data-backdrop=""。</p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th style="width: 100px;">名称</th>
+                        <th style="width: 50px;">类型</th>
+                        <th style="width: 50px;">默认值</th>
+                        <th>描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>backdrop</td>
+                        <td>boolean 或 字符串 <code>'static'</code></td>
+                        <td>true</td>
+                        <td>Includes a modal-backdrop element. Alternatively, specify <code>static</code> for a backdrop which doesn't close the modal on click.</td>
+                    </tr>
+                    <tr>
+                        <td>keyboard</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>键盘上的 esc 键被按下时关闭模态框。</td>
+                    </tr>
+                    <tr>
+                        <td>show</td>
+                        <td>boolean</td>
+                        <td>true</td>
+                        <td>模态框初始化之后就立即显示出来。</td>
+                    </tr>
+                    <tr>
+                        <td>remote</td>
+                        <td>path</td>
+                        <td>false</td>
+                        <td>
+                            <p><span class="text-danger">This option is deprecated since v3.2.1 and will be removed in v4.</span> We recommend instead using client-side templating or a data binding framework, or calling <a href="http://api.jquery.com/load/">jQuery.load</a> yourself.</p>
+                            <p>如果提供的是 URL，将利用 jQuery 的 <code>load</code> 方法<strong>从此 URL 地址加载要展示的内容（只加载一次）</strong>并插入 <code>.modal-content</code> 内。如果使用的是 data 属性 API，还可以利用 <code>href</code> 属性指定内容来源地址。下面是一个实例：</p>
+                            <div class="zero-clipboard"></div><div class="highlight"><pre><code class="html"><span class="nt">&lt;a</span> <span class="na">data-toggle=</span><span class="s">"modal"</span> <span class="na">href=</span><span class="s">"remote.html"</span> <span class="na">data-target=</span><span class="s">"#modal"</span><span class="nt">&gt;</span>Click me<span class="nt">&lt;/a&gt;</span>
+                        </code></pre></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h3>方法</h3>
+                <h4>.modal(options)</h4>
+                <p>将页面中的某块内容作为模态框激活。接受可选参数 object。</p>
+                <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myModal'</span><span class="p">).</span><span class="nx">modal</span><span class="p">({</span>
+                    <span class="nx">keyboard</span><span class="o">:</span> <span class="kc">false</span>
+                    <span class="p">})</span>
+                </code></pre></div>
+
+                <h4>.modal('toggle')</h4>
+                <p>手动打开或关闭模态框。在模态框显示或隐藏之前返回到主调函数中（也就是，在触发 shown.bs.modal 或 hidden.bs.modal 事件之前）。</p>
+                <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myModal'</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s1">'toggle'</span><span class="p">)</span>
+                </code></pre></div>
+
+                <h4>.modal('show')</h4>
+                <p>手动打开模态框。在模态框显示之前返回到主调函数中 （也就是，在触发 shown.bs.modal 事件之前）。</p>
+                <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myModal'</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s1">'show'</span><span class="p">)</span>
+                </code></pre></div>
+
+                <h4>.modal('hide')</h4>
+                <p>手动隐藏模态框。在模态框隐藏之前返回到主调函数中 （也就是，在触发 hidden.bs.modal 事件之前）。</p>
+                <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myModal'</span><span class="p">).</span><span class="nx">modal</span><span class="p">(</span><span class="s1">'hide'</span><span class="p">)</span>
+                </code></pre></div>
+
+                <h3>事件</h3>
+                <p>Bootstrap 的模态框类提供了一些事件用于监听并执行你自己的代码。</p>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th style="width: 150px;">事件类型</th>
+                            <th>描述</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>show.bs.modal</td>
+                            <td><code>show</code> 方法调用之后立即触发该事件。如果是通过点击某个作为触发器的元素，则此元素可以通过事件的 <code>relatedTarget</code> 属性进行访问。</td>
+                        </tr>
+                        <tr>
+                            <td>shown.bs.modal</td>
+                            <td>此事件在模态框已经显示出来（并且同时在 CSS 过渡效果完成）之后被触发。如果是通过点击某个作为触发器的元素，则此元素可以通过事件的 <code>relatedTarget</code> 属性进行访问。</td>
+                        </tr>
+                        <tr>
+                            <td>hide.bs.modal</td>
+                            <td><code>hide</code> 方法调用之后立即触发该事件。</td>
+                        </tr>
+                        <tr>
+                            <td>hidden.bs.modal</td>
+                            <td>此事件在模态框被隐藏（并且同时在 CSS 过渡效果完成）之后被触发。</td>
+                        </tr>
+                        <tr>
+                            <td>loaded.bs.modal</td>
+                            <td>从<code>远端的数据源</code>加载完数据之后触发该事件。</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'#myModal'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'hidden.bs.modal'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">// do something...</span>
+                    <span class="p">})</span>
+                </code></pre></div>
+            </div>
+        </div>
+    </div>
+</div>

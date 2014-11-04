@@ -28,7 +28,7 @@ var page = {
         {title: 'Well', id: 'well'},
     ]},
     jspluginsObjs: {id: 'jsplugins', items: [
-        {title: 'glyphions', id: 'glyphions'}
+        {title: '模态框', id: 'modeldialog'}
     ]},
     currentObjs: null,
     css: null,
