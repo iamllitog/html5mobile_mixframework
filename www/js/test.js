@@ -1,6 +1,7 @@
 var page = {
     headerHeight : 0,
     myScroll : null,
+    changeOld : false,
     initialize: function () {
         $(document).ready(this.documentReady);
     },
@@ -23,14 +24,16 @@ var page = {
                 $(this).css('margin-top', 0);
                 setTimeout(function () {
                     page.myScroll.scrollBy(0,-page.headerHeight,200, IScroll.utils.ease.quadratic);
+                    page.changeOld = true;
                 },2000);
             }
         });
 
         this.myScroll.on('scrollEnd', function () {
-            if(page.headerHeight == -this.y){
+            if(page.changeOld){
                 $('.list-group').css('margin-top', -page.headerHeight);
-                page.myScroll.scrollTo(0,0);
+                page.myScroll.scrollBy(0,page.headerHeight);
+                page.changeOld = false;
             }
         });
     },
