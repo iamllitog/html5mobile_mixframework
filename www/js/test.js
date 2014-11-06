@@ -17,7 +17,7 @@ var page = {
         $('#wrapper').on('pullscroll-refresh',function(event){
             setTimeout(function(){
                 page.myScroll.refreshOver();
-            },2000)
+            },3000)
         });
     },
     initData: function () {
