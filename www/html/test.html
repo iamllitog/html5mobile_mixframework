@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="../framework/mixframework/css/bootstrap.min.css">
     <title>Hello World</title>
+    <style>
+        [data-pulllist-text] {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -12,7 +17,10 @@
         <div class="col-xs-12 content-div">
             <div id="wrapper" style="height: 500px;overflow: hidden;margin-top: 50px;">
             <div class="list-group">
-                <a href="#" data-pulllist-header class="list-group-item">header</a>
+                <a href="#" data-pulllist-header class="list-group-item">
+                    <span data-pulllist-icon class="glyphicon glyphicon-arrow-down"></span>
+                    <span data-pulllist-text>下拉刷新</span>
+                </a>
                 <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
                 <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
                 <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
@@ -62,6 +70,7 @@
 <script src="cordova.js"></script>
 <script src="../framework/mixframework/js/zepto.min.js"></script>
 <script src="../framework/mixframework/js/iscroll-lite.js"></script>
+<script src="../framework/mixframework/js/pullscroll.js"></script>
 <script src="../js/test.js"></script>
 <script>
     page.initialize();

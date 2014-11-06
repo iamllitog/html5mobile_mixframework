@@ -7,7 +7,7 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="html/index.html" />
+    <content src="html/test.html" />
     <access origin="*" />
 
     <preference name="DisallowOverscroll" value="true" />
