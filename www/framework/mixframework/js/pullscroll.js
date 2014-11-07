@@ -1,185 +1,130 @@
 //需要zepto
 var PullScroll = (function (window, document) {
-    var dummyStyle = document.createElement('div').style,
-    vendor = (function () {
-        var vendors = 't,webkitT,MozT,msT,OT'.split(','),
-        t,
-        i = 0,
-        l = vendors.length;
-
-        for (; i < l; i++) {
-            t = vendors[i] + 'ransform';
-            if (t in dummyStyle) {
-                return vendors[i].substr(0, vendors[i].length - 1);
-            }
-        }
-
-        return false;
-    })(),
-    cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
-
-    // Style properties
-    transform = prefixStyle('transform'),
-    transitionDuration = prefixStyle('transitionDuration'),
-
-    hasTouch = 'ontouchstart' in window;
-
-    startEvent = hasTouch ? 'touchstart' : 'mousedown',
-    moveEvent = hasTouch ? 'touchmove' : 'mousemove',
-    endEvent = hasTouch ? 'touchend' : 'mouseup',
-    cancelEvent = hasTouch ? 'touchcancel' : 'mouseup',
 
     PullScroll = function (element) {
-        var that = this;
         if (typeof element !== 'string') {
             throw new Error('first arg must string to select');
             return;
         }
+        var that = this;
+        this.elementStr = element;
+        this.wrapper = document.querySelector(element);
 
-        this.iScroll = new IScroll(element);
+        this.pullDownEl = document.querySelector(element + '  [data-pulllist-pulldown]');
+        if (this.pullDownEl) {
+            this.pullDownOffset = this.pullDownEl.offsetHeight;
+        } else {
+            this.pullDownOffset = 0;
+        }
 
-            //1.得到warpper和warpper里的滑动区域
-            this.wrapper = document.querySelector(element);
-            this.sliderView = document.querySelector(element + " > div ");
+        this.pullUpEl = document.querySelector(element + '  [data-pulllist-pullup]');
+        if (this.pullUpEl) {
+            this.pullUpOffset = this.pullUpEl.offsetHeight;
+        } else {
+            this.pullUpOffset = 0;
+        }
 
+        this.myScroll = new IScroll(element, {
+            probeType: 1, tap: true, click: false, preventDefaultException: {tagName: /.*/}, mouseWheel: true, keyBindings: false,
+            deceleration: 0.0002,
+            startY: (parseInt(this.pullDownOffset) * (-1))
+        });
 
-            //TODO 2.查看header,如果没有则添加一个
-            this.header = $(element + " > div > [data-pulllist-header]");
-            this.headerHeight = this.header.height();
-            $(this.sliderView).css('margin-top', -this.headerHeight);
-            this.headerIcon = document.querySelector(element + " > div > [data-pulllist-header] > [data-pulllist-icon]");
-            this.headerText = document.querySelector(element + " > div > [data-pulllist-header] > [data-pulllist-text]");
-            this.headerIcon.style['transition-timing-function'] = 'linear';
-
-            //3.绑定事件
-            this.sliderView.addEventListener(startEvent, this, false);
-            this.sliderView.addEventListener(moveEvent, this, false);
-            this.sliderView.addEventListener(endEvent, this, false);
-//
-this.iScroll.on('scrollEnd', function () {
-    if (!that.isRefreshOver) {
-        $(that.sliderView).css('margin-top', -that.headerHeight);
-        that.iScroll.scrollBy(0, that.headerHeight);
-        that.isRefreshOver = true;
-    }
-if(this.y - that.headerHeight*2 < this.maxScrollY){
-    //TODO 上拉加载
-}
-});
-
-};
-
-PullScroll.prototype = {
-    isRefreshOver: true,
-    currentState: 100,
-
-    NOT_PULL_STATE: 100,
-    RELEASE_TO_REFRESH_STATE: 1000,
-    REFRESH_STATE: 10000,
-
-        //处理事件的方法
-        handleEvent: function (e) {
-            switch (e.type) {
-                case startEvent:
-                this.__start(e);
-                break;
-                case moveEvent:
-                this.__move(e);
-                break;
-                case cancelEvent:
-                case endEvent:
-                this.__end(e);
-                break;
+        this.myScroll.on('scroll', function () {
+            if (this.y > 0 && that.currentState == that.NOT_PULL_STATE) {
+                //变为松开加载状态
+                that.__changeToRelease();
+            } else if (this.y < 0 && that.currentState == that.RELEASE_TO_REFRESH_STATE) {
+                //变为下拉加载状态
+                that.__changeToNotPull();
+            } else if (this.y - that.pullUpOffset < this.maxScrollY) {
+                //加载更多
+                that.__event('loadmore');
             }
-        },
+        });
+        this.myScroll.on('scrollEnd', function () {
+            if (this.y - that.pullUpOffset < this.maxScrollY) {
+                //加载更多
+                that.__event('loadmore');
+            } else if (that.currentState == that.RELEASE_TO_REFRESH_STATE) {
+                that.__changeToRefresh();
+                that.__event('refresh');
+            }
+        });
 
+        //不懂 留着吧 In order to prevent seeing the "pull down to refresh" before the iScoll is trigger - the wrapper is located at left:-9999px and returned to left:0 after the iScoll is initiated
+        setTimeout(function () {
+            $(element).css({left: 0});
+        }, 100);
+    };
+
+    PullScroll.prototype = {
+        //当前状态
+        currentState: 100,
+        //下拉加载三种状态
+        NOT_PULL_STATE: 100,
+        RELEASE_TO_REFRESH_STATE: 1000,
+        REFRESH_STATE: 10000,
+
+        /**
+         * 刷新结束方法
+         */
         refreshOver: function () {
-            // this.refreshInterId&&window.clearInterval(this.refreshInterId);
-            this.iScroll.scrollBy(0, -this.headerHeight, 200, IScroll.utils.ease.quadratic);
-            this.isRefreshOver = false;
+            this.myScroll.refresh();
+            this.myScroll.scrollBy(0,parseInt(this.pullDownOffset) * (-1),200);
+            var icon = $(this.elementStr + ' [data-pulllist-pulldownicon]');
+            var text = $(this.elementStr + ' [data-pulllist-pulldowntext]');
+            icon.removeClass('glyphicon-refresh');
+            icon.removeClass('rotate360');
+            icon.addClass('glyphicon-arrow-down');
+            icon.addClass('rotate0');
+            text.text('下拉刷新');
             this.currentState = this.NOT_PULL_STATE;
-            this.__changeToNotPull();
         },
-
-        __start: function (e) {
-            if (this.initiated) return;
-            this.initiated = true;
-        },
-
-        __move: function (e) {
-            if (!this.initiated) return;
-            if (this.iScroll.y > this.headerHeight && this.currentState == this.NOT_PULL_STATE) {
-                //更换状态
-                this.__changeToRelease();
-                this.__event('release_to_refresh', e);
-                this.currentState = this.RELEASE_TO_REFRESH_STATE;
-            } else if(this.iScroll.y < this.headerHeight && this.currentState == this.RELEASE_TO_REFRESH_STATE){
-                this.__changeToNotPull();
-                this.__event('pull_to_refresh', e);
-                this.currentState = this.NOT_PULL_STATE;
-            }
-            console.log( this.iScroll.y - this.headerHeight*2 < this.iScroll.maxScrollY);
-        },
-
-        __end: function (e) {
-            if (!this.initiated) return;
-            this.initiated = false;
-            if (this.iScroll.y > this.headerHeight && this.currentState != this.REFRESH_STATE) {
-//                alert(this.iScroll.maxScrollY);
-this.__changeToRefresh();
-
-this.iScroll.scrollBy(0, -this.headerHeight);
-$(this.sliderView).css('margin-top', 0);
-this.currentState = this.REFRESH_STATE;
-this.__event('refresh', e);
-}
-},
-
-        //iscroll上的事件处理
-
-        __event: function (type, data) {
-            var ev = document.createEvent("Event");
-
-            for (var i in data) {
-                var propertyName = i;
-                if (propertyName == 'returnValue') continue;
-                var property = data[i];
-                if (typeof ev[propertyName] != 'function' && propertyName != "returnValue")
-                    ev[propertyName] = property;
-            }
-            ev.initEvent('pullscroll-' + type, true, true);
-
-            this.wrapper.dispatchEvent(ev);
+        /**
+         * 加载更多结束方法
+         */
+        loadMoreOver: function () {
+            this.myScroll.refresh();
         },
 
         __changeToNotPull: function () {
-            this.headerIcon.className = this.headerIcon.className.replace('glyphicon-refresh', 'glyphicon-arrow-down');
-            this.headerIcon.style[transitionDuration] = '300ms';
-            this.headerIcon.style[transform] = 'rotate(0deg)';
-            this.headerText.innerHTML = '下拉刷新';
+            var icon = $(this.elementStr + ' [data-pulllist-pulldownicon]');
+            var text = $(this.elementStr + ' [data-pulllist-pulldowntext]');
+            icon.removeClass('rotate-180');
+            icon.addClass('rotate0');
+            text.text('下拉刷新');
+            this.currentState = this.NOT_PULL_STATE;
         },
         __changeToRelease: function () {
-//            this.headerIcon.className = this.headerIcon.className.replace('glyphicon-refresh','glyphicon-arrow-down');
-this.headerIcon.style[transitionDuration] = '300ms';
-this.headerIcon.style[transform] = 'rotate(-180deg)';
-this.headerText.innerHTML = '松开刷新';
-},
-__changeToRefresh: function () {
-        this.headerIcon.style[transitionDuration] = '0ms';
-    this.headerIcon.style[transform] = 'rotate(0deg)';
-    this.headerIcon.className = this.headerIcon.className.replace('glyphicon-arrow-down', 'glyphicon-refresh');
-    this.headerIcon.style[transitionDuration] = '60000ms';
-    this.headerIcon.style[transform] = 'rotate(35000deg)';
-    this.headerText.innerHTML = '正在刷新';
-}}
+            var icon = $(this.elementStr + ' [data-pulllist-pulldownicon]');
+            var text = $(this.elementStr + ' [data-pulllist-pulldowntext]');
+            icon.removeClass('rotate0');
+            icon.addClass('rotate-180');
+            text.text('松开刷新');
+            this.currentState = this.RELEASE_TO_REFRESH_STATE;
+        },
+        __changeToRefresh: function () {
+            var icon = $(this.elementStr + ' [data-pulllist-pulldownicon]');
+            var text = $(this.elementStr + ' [data-pulllist-pulldowntext]');
+            icon.removeClass('glyphicon-arrow-down');
+            icon.removeClass('rotate0');
+            icon.removeClass('rotate-180');
+            icon.addClass('glyphicon-refresh');
+            icon.addClass('rotate360');
 
-function prefixStyle(style) {
-    if (vendor === '') return style;
+            text.text('正在刷新');
+            this.currentState = this.REFRESH_STATE;
+        },
+        __event: function (type) {
+            var ev = document.createEvent("Event");
 
-    style = style.charAt(0).toUpperCase() + style.substr(1);
-    return vendor + style;
-}
+            ev.initEvent('pullscroll-' + type, true, true);
 
-return PullScroll;
+            this.wrapper.dispatchEvent(ev);
+        }
+    }
+
+    return PullScroll;
 
 })(window, document);

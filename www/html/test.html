@@ -4,6 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="../framework/mixframework/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../framework/mixframework/css/pullscroll.css">
     <title>Hello World</title>
     <style>
         [data-pulllist-text] {
@@ -11,57 +12,56 @@
         }
     </style>
 </head>
-<body>
+<body lang = 'zh'>
 <div class="container">
-    <div class='row'>
-        <div class="col-xs-12 content-div">
-            <div id="wrapper" style="height: 500px;overflow: hidden;margin-top: 50px;">
-            <div class="list-group">
-                <a href="#" data-pulllist-header class="list-group-item">
-                    <span data-pulllist-icon class="glyphicon glyphicon-arrow-down"></span>
-                    <span data-pulllist-text>下拉刷新</span>
-                </a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item list-group-item-info">Cras sit amet nibh libero</a>
-                <a href="#" class="list-group-item list-group-item-warning">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
-                <a href="#" data-pulllist-footer class="list-group-item">header</a>
-            </div>
+    <div class="col-xs-12 content-div">
+        <div id="wrapper" style="height: 500px;overflow: hidden;margin-top: 50px;">
+            <div id="scroller">
+                <div class="list-group" data-pulllist-pulldown>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <span data-pulllist-pulldownicon class="glyphicon glyphicon-arrow-down"></span>
+                        <span data-pulllist-pulldowntext>下拉刷新</span>
+                    </a>
+                </div>
+                <div class="list-group" data-pulllist-list>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                </div>
+                <div class="list-group" data-pulllist-pullup>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <span data-pulllist-pullupicon class="rotate360 glyphicon glyphicon-refresh"></span>
+                        <span data-pulllist-pulluptext>正在加载更多</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -69,7 +69,7 @@
 
 <script src="cordova.js"></script>
 <script src="../framework/mixframework/js/zepto.min.js"></script>
-<script src="../framework/mixframework/js/iscroll-lite.js"></script>
+<script src="../framework/mixframework/js/iscroll-probe.js"></script>
 <script src="../framework/mixframework/js/pullscroll.js"></script>
 <script src="../js/test.js"></script>
 <script>

@@ -191,3 +191,98 @@
 + tabgroup-buttonclick
 
     > 按钮点击
+
+
+##PullScroll
+
+###使用方法
+
+1.引入
+
+> `<script src="../framework/mixframework/js/zepto.min.js"></script>`
+> `<script src="../framework/mixframework/js/iscroll-probe.js"></script>`
+> `<script src="../framework/mixframework/js/pullscroll.js"></script>`
+> `<link rel="stylesheet" href="../framework/mixframework/css/pullscroll.css">`
+
+2.在html标签中嵌入
+
+
+<div id="wrapper" style="height: 500px;overflow: hidden;margin-top: 50px;">
+            <div id="scroller">
+                <div class="list-group" data-pulllist-pulldown>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <span data-pulllist-pulldownicon class="glyphicon glyphicon-arrow-down"></span>
+                        <span data-pulllist-pulldowntext>下拉刷新</span>
+                    </a>
+                </div>
+                <div class="list-group" data-pulllist-list>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis
+                        in</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-info">Cras sit amet nibh
+                        libero</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-warning">Porta ac consectetur
+                        ac</a>
+                    <a data-pulllist-item href="#" class="list-group-item list-group-item-danger">Vestibulum at eros</a>
+                </div>
+                <div class="list-group" data-pulllist-pullup>
+                    <a href="#" class="list-group-item list-group-item-info">
+                        <span data-pulllist-pullupicon class="rotate360 glyphicon glyphicon-refresh"></span>
+                        <span data-pulllist-pulluptext>正在加载更多</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+3.在body结束标签前初始化
+
+> `var myScroll = new PullScroll('#wrapper');`
+
+###方法
+
++ refreshOver();
+
+> 此方法需要在刷新完成后调用
+
++ loadMoreOver();
+
+> 此方法需要在加载更多完成后调用
+
+###属性
+
++ myScroll
+
+> 在pullscroll中维护一个iscroll,使用此属性可以操作它
+
+###事件
+
++ pullscroll-refresh
+
+    > 刷新时的回调
+
++ pullscroll-loadmore
+
+    > 加载更多时的回调
