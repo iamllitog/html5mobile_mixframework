@@ -96,7 +96,7 @@ var SlideView = (function (window, document) {
             this.wrapper.addEventListener(startEvent, this, false);
             this.wrapper.addEventListener(moveEvent, this, false);
             this.wrapper.addEventListener(endEvent, this, false);
-            this.sliderView.addEventListener(transitionEndEvent,this, false);
+            this.sliderView.addEventListener(transitionEndEvent, this, false);
 
         };
 //声明打开关闭的模式
@@ -115,14 +115,21 @@ var SlideView = (function (window, document) {
         x: 0,
         //开关左侧view
         toggleLeftView: function () {
-            if(this.isFlip) return;
+            if (this.isFlip) return;
+
             var tranTime = Math.floor(80 * Math.abs(this.leftViewWidth) / this.snapThreshold);
             if (this.currentViewTag == SlideView.CURRENT_LEFT_VIEW) {
-                this.__pos(0,tranTime);
+                this.__addMask('left');
+                this.__addMask('middle');
+                this.__pos(0, tranTime);
+                this.__removeMask('middle')
                 this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
             } else {
-                this.__pos(this.leftViewWidth,tranTime);
+                this.__addMask('middle');
+                this.__addMask('left');
+                this.__pos(this.leftViewWidth, tranTime);
+                this.__removeMask('left')
                 this.currentViewTag = SlideView.CURRENT_LEFT_VIEW;
                 this.__event('movein-leftview');
             }
@@ -130,14 +137,18 @@ var SlideView = (function (window, document) {
 
         //开关右侧view
         toggleRightView: function () {
-            if(this.isFlip) return;
+            if (this.isFlip) return;
             var tranTime = Math.floor(80 * Math.abs(this.rightViewWidth) / this.snapThreshold);
             if (this.currentViewTag == SlideView.CURRENT_RIGHT_VIEW) {
-                this.__pos(0,tranTime);
+                this.__removeMask('middle');
+                this.__addMask('right');
+                this.__pos(0, tranTime);
                 this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                 this.__event('movein-centerview');
             } else {
-                this.__pos(-this.rightViewWidth,tranTime);
+                this.__removeMask('right');
+                this.__addMask('middle');
+                this.__pos(-this.rightViewWidth, tranTime);
                 this.currentViewTag = SlideView.CURRENT_RIGHT_VIEW;
                 this.__event('movein-rightview');
             }
@@ -183,7 +194,7 @@ var SlideView = (function (window, document) {
         __resize: function () {
             this.refreshSize();
             this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
-                this.__pos(0);
+            this.__pos(0);
         },
 
         __start: function (e) {
@@ -238,10 +249,10 @@ var SlideView = (function (window, document) {
                 return;
             }
 
-              if(this.touchdistanceX < this.touchdistanceY){
-                  this.initiated = false;
-                  return;
-              }
+            if (this.touchdistanceX < this.touchdistanceY) {
+                this.initiated = false;
+                return;
+            }
 
             //越界判断
             if (this.newX < -this.rightViewWidth || this.newX > this.leftViewWidth) {
@@ -275,36 +286,44 @@ var SlideView = (function (window, document) {
 
             if (this.currentViewTag == SlideView.CURRENT_LEFT_VIEW) {
                 if ((distX < 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX > this.leftViewWidth)) {
-                    this.__pos(0,Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.__addMask('left');
+                    this.__removeMask('middle');
+                    this.__pos(0, Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
                     this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
                 } else {
-                    this.__pos(this.leftViewWidth,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
+                    this.__pos(this.leftViewWidth, Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
             } else if (this.currentViewTag == SlideView.CURRENT_CENTER_VIEW) {
                 if (distX < 0 && Math.abs(distX) > this.snapThreshold) {
-                    this.__pos(-this.rightViewWidth,Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.__removeMask('right');
+                    this.__addMask('middle');
+                    this.__pos(-this.rightViewWidth, Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
                     this.currentViewTag = SlideView.CURRENT_RIGHT_VIEW;
                     this.__event('movein-rightview');
                 } else if (distX > 0 && Math.abs(distX) > this.snapThreshold) {
-                    this.__pos(this.leftViewWidth,Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.__removeMask('left');
+                    this.__addMask('middle');
+                    this.__pos(this.leftViewWidth, Math.floor(150 * Math.abs(this.leftViewWidth - Math.abs(distX)) / this.snapThreshold));
                     this.currentViewTag = SlideView.CURRENT_LEFT_VIEW;
                     this.__event('movein-leftview');
                 } else {
-                    this.__pos(0,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
+                    this.__pos(0, Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
             } else {
                 if ((distX > 0 && Math.abs(distX) > this.snapThreshold) || (Math.abs(distX) < 10 && point.pageX < (this.leftViewWidth + this.wrapperWidth))) {
-                    this.__pos(0,Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
+                    this.__addMask('right');
+                    this.__removeMask('middle');
+                    this.__pos(0, Math.floor(150 * Math.abs(this.rightViewWidth - Math.abs(distX)) / this.snapThreshold));
                     this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
                     this.__event('movein-centerview');
                 } else {
-                    this.__pos(-this.rightViewWidth,Math.floor(150 * Math.abs(distX) / this.snapThreshold));
+                    this.__pos(-this.rightViewWidth, Math.floor(150 * Math.abs(distX) / this.snapThreshold));
                 }
             }
         },
 
-        __flipEnd : function(e){
+        __flipEnd: function (e) {
             this.isFlip = false;
         },
 
@@ -322,12 +341,71 @@ var SlideView = (function (window, document) {
 
             this.wrapper.dispatchEvent(ev);
         },
-        __pos: function (x,time) {
-            if(time && time > 0)
+        __pos: function (x, time) {
+            if (time && time > 0)
                 this.isFlip = true;
             this.sliderView.style[transitionDuration] = time + 'ms';
             this.x = x;
             this.sliderView.style[transform] = 'translate(' + x + 'px,0)' + translateZ;
+        },
+        /*遮罩层*/
+        /**
+         * 添加遮罩
+         * @param maskPos 遮罩的位置,left,middle,right
+         * @private
+         */
+        __addMask: function (maskPos) {
+            console.log('add:'+maskPos);
+            var mask = document.createElement('div');
+            mask.style.cssText = "display:block;background:#000;filter:alpha(opacity=10);opacity:.1;left:0px;top:0px;position:fixed;height:100%;width:100%;overflow:hidden;z-index:10000;"
+            mask.unselectable = 'on';
+            mask.className = 'slideMask'
+            switch (maskPos) {
+                case "left":
+                    if (!this.leftView.querySelector('.slideMask'))
+                        this.leftView.appendChild(mask);
+                    break;
+                case "middle":
+                    if (!this.contentView.querySelector('.slideMask'))
+                        this.contentView.appendChild(mask);
+                    break;
+                case "right":
+                    if (!this.rightView.querySelector('.slideMask'))
+                        this.rightView.appendChild(mask);
+                    break;
+                default :
+                    break;
+            }
+        },
+        /**
+         * 删除遮罩
+         * @param maskPos 遮罩的位置,left,middle,right
+         * @private
+         */
+        __removeMask: function (maskPos) {
+            console.log('remove:'+maskPos);
+            switch (maskPos) {
+                case "left":
+                    var mask = this.leftView.querySelector('.slideMask')
+                    if(mask){
+                        this.leftView.removeChild(mask);
+                    }
+                    break;
+                case "middle":
+                    var mask = this.contentView.querySelector('.slideMask')
+                    if(mask){
+                        this.contentView.removeChild(mask);
+                    }
+                    break;
+                case "right":
+                    var mask = this.rightView.querySelector('.slideMask')
+                    if(mask){
+                        this.rightView.removeChild(mask);
+                    }
+                    break;
+                default :
+                    break;
+            }
         }
     };
 

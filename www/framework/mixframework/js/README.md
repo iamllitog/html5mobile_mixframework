@@ -286,3 +286,29 @@
 + pullscroll-loadmore
 
     > 加载更多时的回调
+
+##popuploading
+
+###使用方法
+
+1.引入
+
+> ` <link rel="stylesheet" href="../framework/mixframework/css/popuploading.css">`
+> `<script src="../framework/mixframework/js/popuploading.js"></script>`
+
+
+2.在html标签中嵌入
+
+3.在body结束标签前初始化
+
+> ``
+
+###方法
+
++ popup.popupshow("loading...");显示加载框
+
+> 此方法需要在联网获取数据时调用
+
++  popup.popupclose();关闭加载框
+
+> 此方法需要在数据加载完成后调用

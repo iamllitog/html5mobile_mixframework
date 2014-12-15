@@ -1,0 +1,36 @@
+#bg{width:100%;height:100%;top:0px;left:0px;position:absolute;filter: Alpha(opacity=50);opacity:0.5; display:none;}
+#popbox{position:absolute;width:130px; height:130px; top:50%; display:none; background-color:#A2A2A2;border-radius:10px;filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity: 0.5;opacity: 0.5;color: #ffffff }
+
+.rotate360 {
+    -webkit-transform: rotate(0deg) translateZ(0);
+    -ms-transform: rotate(0deg) translateZ(0);
+    -webkit-transition-duration: 0ms;
+    -ms-transition-duration: 0ms;
+    -webkit-animation-name: rotateAnimate360;
+    -ms-animation-name: rotateAnimate360;
+    -webkit-animation-duration: 1s;
+    -ms-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -ms-animation-timing-function: linear
+}
+
+
+@-webkit-keyframes rotateAnimate360 {
+    from {
+        -webkit-transform: rotate(0deg) translateZ(0)
+    }
+    to {
+        -webkit-transform: rotate(360deg) translateZ(0)
+    }
+}
+
+@-ms-keyframes rotateAnimate360 {
+    from {
+        -ms-transform: rotate(0deg) translateZ(0)
+    }
+    to {
+        -ms-transform: rotate(360deg) translateZ(0)
+    }
+}

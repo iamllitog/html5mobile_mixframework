@@ -24,6 +24,8 @@ var PullScroll = (function (window, document) {
             this.pullUpOffset = 0;
         }
 
+        this.sliderView = document.querySelector(element + ' > div');
+
         this.myScroll = new IScroll(element, {
             probeType: 1, tap: true, click: false, preventDefaultException: {tagName: /.*/}, mouseWheel: true, keyBindings: false,
             deceleration: 0.0002,
@@ -37,16 +39,19 @@ var PullScroll = (function (window, document) {
             } else if (this.y < 0 && that.currentState == that.RELEASE_TO_REFRESH_STATE) {
                 //变为下拉加载状态
                 that.__changeToNotPull();
-            } else if (this.y - that.pullUpOffset < this.maxScrollY) {
+            } else if (this.y - that.pullUpOffset < this.maxScrollY && that.isAddMore == false && that.currentState != that.REFRESH_STATE) {
                 //加载更多
                 that.__event('loadmore');
+                that.isAddMore = true;
             }
         });
         this.myScroll.on('scrollEnd', function () {
-            if (this.y - that.pullUpOffset < this.maxScrollY) {
+            if (this.y - that.pullUpOffset < this.maxScrollY && that.isAddMore == false && that.currentState != that.REFRESH_STATE) {
                 //加载更多
                 that.__event('loadmore');
-            } else if (that.currentState == that.RELEASE_TO_REFRESH_STATE) {
+                that.isAddMore = true;
+            }
+            if (that.currentState == that.RELEASE_TO_REFRESH_STATE) {
                 that.__changeToRefresh();
                 that.__event('refresh');
             }
@@ -61,6 +66,8 @@ var PullScroll = (function (window, document) {
     PullScroll.prototype = {
         //当前状态
         currentState: 100,
+        //是否正在加载更多
+        isAddMore: false,
         //下拉加载三种状态
         NOT_PULL_STATE: 100,
         RELEASE_TO_REFRESH_STATE: 1000,
@@ -70,8 +77,7 @@ var PullScroll = (function (window, document) {
          * 刷新结束方法
          */
         refreshOver: function () {
-            this.myScroll.refresh();
-            this.myScroll.scrollBy(0,parseInt(this.pullDownOffset) * (-1),200);
+            this.myScroll.scrollBy(0, parseInt(this.pullDownOffset) * (-1), 200);
             var icon = $(this.elementStr + ' [data-pulllist-pulldownicon]');
             var text = $(this.elementStr + ' [data-pulllist-pulldowntext]');
             icon.removeClass('glyphicon-refresh');
@@ -80,12 +86,37 @@ var PullScroll = (function (window, document) {
             icon.addClass('rotate0');
             text.text('下拉刷新');
             this.currentState = this.NOT_PULL_STATE;
+
+            var wrapperH = this.wrapper.clientHeight, sliderH = this.sliderView.clientHeight, upsetH = $(this.elementStr + ' [data-pulllist-list] > .pullscroll-upsate').height() ? $(this.elementStr + ' [data-pulllist-list] > .pullscroll-upsate').height() : 0;
+            if (wrapperH > sliderH) {
+                $(this.elementStr + ' [data-pulllist-list]').append("<div class='pullscroll-upsate' style='min-height: " + (wrapperH - sliderH + 1) + "px'></div>");
+            } else if (wrapperH > (sliderH - upsetH)) {
+                $(this.elementStr + ' [data-pulllist-list] > .pullscroll-upsate').remove();
+                $(this.elementStr + ' [data-pulllist-list]').append("<div class='pullscroll-upsate' style='min-height: " + (wrapperH - (sliderH - upsetH) + 1) + "px'></div>");
+            } else {
+                $(this.elementStr + ' [data-pulllist-list] > .pullscroll-upsate').remove()
+            }
+            var that = this;
+            setTimeout(function () {
+                that.myScroll.refresh();
+                that = null;
+            }, 0)
+
         },
         /**
          * 加载更多结束方法
          */
         loadMoreOver: function () {
+            this.isAddMore = false;
             this.myScroll.refresh();
+        },
+
+        /**
+         * 显示loading状态
+         */
+        showLoading: function () {
+            this.myScroll.scrollTo(0, 0);
+            this.__changeToRefresh();
         },
 
         __changeToNotPull: function () {
