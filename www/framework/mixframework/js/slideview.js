@@ -384,28 +384,33 @@ var SlideView = (function (window, document) {
          */
         __removeMask: function (maskPos) {
             console.log('remove:'+maskPos);
-            switch (maskPos) {
-                case "left":
-                    var mask = this.leftView.querySelector('.slideMask')
-                    if(mask){
-                        this.leftView.removeChild(mask);
-                    }
-                    break;
-                case "middle":
-                    var mask = this.contentView.querySelector('.slideMask')
-                    if(mask){
-                        this.contentView.removeChild(mask);
-                    }
-                    break;
-                case "right":
-                    var mask = this.rightView.querySelector('.slideMask')
-                    if(mask){
-                        this.rightView.removeChild(mask);
-                    }
-                    break;
-                default :
-                    break;
-            }
+            var that = this;
+            setTimeout(function () {
+                switch (maskPos) {
+                    case "left":
+                        var mask = that.leftView.querySelector('.slideMask')
+                        if(mask){
+                            that.leftView.removeChild(mask);
+                        }
+                        break;
+                    case "middle":
+                        var mask = that.contentView.querySelector('.slideMask')
+                        if(mask){
+                            that.contentView.removeChild(mask);
+                        }
+                        break;
+                    case "right":
+                        var mask = that.rightView.querySelector('.slideMask')
+                        if(mask){
+                            that.rightView.removeChild(mask);
+                        }
+                        break;
+                    default :
+                        break;
+                }
+                that = null
+            },50);
+
         }
     };
 

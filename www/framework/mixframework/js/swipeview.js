@@ -66,7 +66,7 @@ var SwipeView = (function (window, document) {
 				numberOfPages: 3,
 				snapThreshold: null,
 				hastyPageFlip: false,
-				loop: true
+				loop: true,
 			};
 		
 			// User defined options
@@ -161,9 +161,9 @@ var SwipeView = (function (window, document) {
 			}*/
 		},
 
-		refreshSize: function () {
-			this.wrapperWidth = this.wrapper.clientWidth;
-			this.wrapperHeight = this.wrapper.clientHeight;
+		refreshSize: function (mWrapperWidth,mWrapperHeight) {
+			this.wrapperWidth = mWrapperWidth?mWrapperWidth:this.wrapper.clientWidth;
+			this.wrapperHeight = mWrapperHeight?mWrapperHeight:this.wrapper.clientHeight;
 			this.pageWidth = this.wrapperWidth;
 			this.maxX = -this.options.numberOfPages * this.pageWidth + this.wrapperWidth;
 			this.snapThreshold = this.options.snapThreshold === null ?
@@ -388,7 +388,6 @@ var SwipeView = (function (window, document) {
 			var pageFlip,
 				pageFlipIndex,
 				className;
-
 			this.masterPages[this.currentMasterPage].className = this.masterPages[this.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
 
 			// Flip the page
