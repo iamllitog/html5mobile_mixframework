@@ -113,6 +113,51 @@ var SlideView = (function (window, document) {
 
         currentViewTag: 'center-view',
         x: 0,
+
+        //打开左侧view
+        closeLeftView: function () {
+            var tranTime = Math.floor(80 * Math.abs(this.leftViewWidth) / this.snapThreshold);
+            this.__addMask('middle');
+            this.__addMask('left');
+            this.__pos(this.leftViewWidth, tranTime);
+            this.__removeMask('left')
+            this.currentViewTag = SlideView.CURRENT_LEFT_VIEW;
+            this.__event('movein-leftview');
+        },
+
+        //关闭左侧view
+        closeLeftView: function () {
+
+            var tranTime = Math.floor(80 * Math.abs(this.leftViewWidth) / this.snapThreshold);
+                this.__addMask('left');
+                this.__addMask('middle');
+                this.__pos(0, tranTime);
+                this.__removeMask('middle')
+                this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
+                this.__event('movein-centerview');
+        },
+
+        //打开右侧view
+        closeRightView: function () {
+            var tranTime = Math.floor(80 * Math.abs(this.rightViewWidth) / this.snapThreshold);
+            this.__removeMask('middle');
+            this.__addMask('right');
+            this.__pos(0, tranTime);
+            this.currentViewTag = SlideView.CURRENT_CENTER_VIEW;
+            this.__event('movein-centerview');
+        },
+
+        //关闭右侧view
+        closeRightView: function () {
+
+            var tranTime = Math.floor(80 * Math.abs(this.rightViewWidth) / this.snapThreshold);
+            this.__removeMask('right');
+            this.__addMask('middle');
+            this.__pos(-this.rightViewWidth, tranTime);
+            this.currentViewTag = SlideView.CURRENT_RIGHT_VIEW;
+            this.__event('movein-rightview');
+        },
+
         //开关左侧view
         toggleLeftView: function () {
             if (this.isFlip) return;
@@ -344,6 +389,7 @@ var SlideView = (function (window, document) {
         __pos: function (x, time) {
             if (time && time > 0)
                 this.isFlip = true;
+
             this.sliderView.style[transitionDuration] = time + 'ms';
             this.x = x;
             this.sliderView.style[transform] = 'translate(' + x + 'px,0)' + translateZ;
